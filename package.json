@@ -5,18 +5,31 @@
     "keywords": ["react", "starter"],
     "main": "src/index.js",
     "dependencies": {
+        "autoprefixer": "^9.7.4",
         "d3-ease": "1.0.6",
         "framer-motion": "1.8.4",
         "lodash-es": "4.17.15",
+        "postcss-cli": "^7.1.0",
         "react": "16.12.0",
         "react-dom": "16.12.0",
         "react-scripts": "3.0.1",
-        "react-spring": "8.0.27"
+        "react-spring": "8.0.27",
+        "tailwindcss": "^1.2.0"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject"
+        "start": "npm run watch:css && react-scripts start",
+        "build": "npm run build:css && react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "build:css": "postcss src/css/tailwind.css -o src/css/main.css",
+        "watch:css": "postcss src/css/tailwind.css -o src/css/main.css"
+    },
+    "browserslist": {
+        "production": [">0.2%", "not dead", "not op_mini all"],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
     }
 }

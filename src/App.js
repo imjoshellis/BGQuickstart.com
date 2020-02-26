@@ -2,8 +2,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import range from 'lodash-es/range'
 import React from 'react'
 import ArrowBack from './arrow-back'
+import './css/main.css'
+import './css/styles.css'
 import Shuffle2 from './shuffle-2'
-import './styles.css'
 
 export default function App () {
   const [startPlayer, setStartPlayer] = React.useState(0)
