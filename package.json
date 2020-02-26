@@ -1,12 +1,11 @@
 {
-    "name": "react",
+    "name": "bg-quickstart",
     "version": "1.0.0",
-    "description": "React example starter project",
+    "description": "The fastest way to pick a start player",
     "keywords": ["react", "starter"],
     "main": "src/index.js",
     "dependencies": {
         "autoprefixer": "^9.7.4",
-        "d3-ease": "1.0.6",
         "framer-motion": "1.8.4",
         "lodash-es": "4.17.15",
         "postcss-cli": "^7.1.0",

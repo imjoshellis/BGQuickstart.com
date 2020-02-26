@@ -210,7 +210,7 @@ export default function App () {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={reset}
-          className='flex flex-row justify-center items-center p-3 px-4 text-red-900 bg-red-400 rounded font-bold cursor-pointer shadow-lg'
+          className='flex flex-row justify-center items-center p-3 px-4 text-red-900 bg-red-300 rounded font-bold cursor-pointer shadow-lg'
         >
           <ArrowBack height={24} width={24} />
           <div className='ml-1'>RESET</div>
