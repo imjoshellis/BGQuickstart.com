@@ -193,10 +193,22 @@ export default function App () {
     >
       <motion.h1
         positionTransition
-        className='text-gray-200 font-bold text-4xl mb-6'
+        className='text-gray-200 font-bold text-4xl '
       >
         BG QuickStart
       </motion.h1>
+      <motion.h2 positionTransition className='text-gray-500 text-sm mb-6'>
+        Built by{' '}
+        <a
+          className='underline text-gray-500 hover:text-gray-300 transition duration-500 ease-out'
+          href='https://twitter.com/imjoshellis'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          @imjoshellis
+        </a>
+      </motion.h2>
+
       <AnimatePresence>
         <PageToggle />
       </AnimatePresence>
