@@ -35,7 +35,7 @@ export default function App () {
 
   const PlayerCountButton = ({ num }) => {
     const styles =
-      'py-8 px-8 text-gray-900 bg-gray-600 rounded-lg text-xl font-bold cursor-pointer shadow'
+      'py-8 px-8 text-gray-900 bg-gray-600 rounded-lg text-xl font-bold cursor-pointer shadow-lg'
     let delay = 0
     switch (num) {
       case 6:
@@ -58,7 +58,10 @@ export default function App () {
     }
     return (
       <motion.div
-        whileHover={{ scale: 1.05, backgroundColor: '#CCD5E1' }}
+        whileHover={{
+          scale: 1.05,
+          backgroundColor: '#CCD5E1'
+        }}
         whileTap={{ scale: 0.95, backgroundColor: '#EDF2F7' }}
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -122,9 +125,9 @@ export default function App () {
         initial={{ width: 56, height: 56, rotate: lastRotation }}
         animate={{ width: 48, height: 48, rotate: 360 * 3 + startRotation }}
         transition={{ duration: 0.3 }}
-        whileHover={{ backgroundColor: '#fafafa' }}
+        whileHover={{ backgroundColor: '#5F6163' }}
         onClick={() => startFn(playerCount)}
-        className='start rounded-full text-blue-400 flex flex-col items-center justify-center bg-blue-100'
+        className='start rounded-full text-gray-500 flex flex-col items-center justify-center border-2 border-solid border-gray-700 bg-gray-800 cursor-pointer shadow-xl'
       >
         <div className='startIcon w-2/3 flex flex-col items-center justify-center'>
           <ArrowBack />
