@@ -1,11 +1,10 @@
 html {
-    background-color: #1a202c;
+    background-color: #1f2123;
 }
 
 .App {
-    font-family: sans-serif;
-    text-align: center;
     user-select: none;
+    text-align: center;
 }
 
 .dotWrap {
