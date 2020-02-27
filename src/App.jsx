@@ -2,8 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import range from 'lodash-es/range'
 import React from 'react'
 import ArrowBack from './arrow-back'
-import './css/main.css'
 import './css/styles.css'
+import './css/tailwind.css'
 import Shuffle2 from './shuffle-2'
 
 export default function App () {

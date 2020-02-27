@@ -2,10 +2,10 @@
     "name": "bg-quickstart",
     "version": "1.0.0",
     "description": "The fastest way to pick a start player",
-    "keywords": ["react", "starter"],
     "main": "src/index.js",
     "dependencies": {
         "autoprefixer": "^9.7.4",
+        "cssnano": "^4.1.10",
         "framer-motion": "1.8.4",
         "lodash-es": "4.17.15",
         "postcss-cli": "^7.1.0",
@@ -13,15 +13,16 @@
         "react-dom": "16.12.0",
         "react-scripts": "3.0.1",
         "react-spring": "8.0.27",
-        "tailwindcss": "^1.2.0"
+        "tailwindcss": "^1.2.0",
+        "@fullhuman/postcss-purgecss": "^2.1.0"
     },
     "scripts": {
         "start": "npm run watch:css && react-scripts start",
         "build": "npm run build:css && react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "build:css": "postcss src/css/tailwind.css -o src/css/main.css",
-        "watch:css": "postcss src/css/tailwind.css -o src/css/main.css"
+        "build:css": "postcss src/css/tailwind.src.css -o src/css/tailwind.css --env production",
+        "watch:css": "postcss src/css/tailwind.src.css -o src/css/tailwind.css"
     },
     "browserslist": {
         "production": [">0.2%", "not dead", "not op_mini all"],
@@ -30,5 +31,6 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    }
+    },
+    "devDependencies": {}
 }
