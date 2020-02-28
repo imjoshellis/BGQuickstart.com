@@ -4,6 +4,7 @@
     "description": "The fastest way to pick a start player",
     "main": "src/index.js",
     "dependencies": {
+        "@fullhuman/postcss-purgecss": "^2.1.0",
         "autoprefixer": "^9.7.4",
         "cssnano": "^4.1.10",
         "framer-motion": "1.8.4",
@@ -14,7 +15,7 @@
         "react-scripts": "3.0.1",
         "react-spring": "8.0.27",
         "tailwindcss": "^1.2.0",
-        "@fullhuman/postcss-purgecss": "^2.1.0"
+        "typescript": "^3.8.2"
     },
     "scripts": {
         "start": "npm run watch:css && react-scripts start",

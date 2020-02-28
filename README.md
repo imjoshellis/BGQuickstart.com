@@ -1,2 +1,3 @@
 # bg-quickstart
- the fastest way to choose a start player
+---
+The fastest way to choose a start player.
