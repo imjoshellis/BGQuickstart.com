@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 
-const PlayerCountButton = ({ num, click }) => {
+export default ({ num, click }) => {
   const styles =
     'py-8 px-8 text-gray-900 bg-gray-600 rounded-lg text-xl font-bold cursor-pointer shadow-lg'
   // Cascading entrance render
@@ -42,5 +42,3 @@ const PlayerCountButton = ({ num, click }) => {
     </motion.div>
   )
 }
-
-export default PlayerCountButton

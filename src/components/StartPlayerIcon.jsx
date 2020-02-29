@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import ArrowBack from './ArrowBack'
 
-const StartPlayerIcon = ({ click, lastRotation, startRotation }) => {
+export default ({ click, lastRotation, startRotation }) => {
   return (
     <motion.div
       initial={{ width: 56, height: 56, rotate: lastRotation }}
@@ -18,5 +18,3 @@ const StartPlayerIcon = ({ click, lastRotation, startRotation }) => {
     </motion.div>
   )
 }
-
-export default StartPlayerIcon

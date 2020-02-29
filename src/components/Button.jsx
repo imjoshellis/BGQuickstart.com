@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 
-const Button = props => {
+export default props => {
   const handleClick = () => props.click
   return (
     <motion.div
@@ -15,5 +15,3 @@ flex-row justify-around items-center p-3 px-4 rounded font-bold cursor-pointer s
     </motion.div>
   )
 }
-
-export default Button
