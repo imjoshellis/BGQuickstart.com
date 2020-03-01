@@ -1,2 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignore all files for repo filetype
+* linguist-vendored
+
+# Un-Ignore .js & .jsx so repo is JS on GitHub
+*.js linguist-vendored=false
+*.jsx linguist-vendored=false
