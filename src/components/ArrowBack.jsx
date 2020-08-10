@@ -4,7 +4,6 @@ function ArrowBack (props) {
   const fill = props.fill || 'currentColor'
   const width = props.width || '100%'
   const height = props.height || '100%'
-  const title = props.title || 'arrow back'
 
   return (
     <svg
@@ -13,7 +12,6 @@ function ArrowBack (props) {
       viewBox='0 0 24 24'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <title>{title}</title>
       <g fill={fill}>
         <g data-name='Layer 2'>
           <path

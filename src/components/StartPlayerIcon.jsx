@@ -10,10 +10,10 @@ export default ({ click, lastRotation, startRotation }) => {
       transition={{ duration: 0.3 }}
       whileHover={{ backgroundColor: '#5F6163' }}
       onClick={click}
-      className='start rounded-full text-gray-500 flex flex-col items-center justify-center border-2 border-solid border-gray-700 bg-gray-800 cursor-pointer'
+      className='flex flex-col items-center justify-center text-gray-500 bg-gray-800 border-2 border-gray-700 border-solid rounded-full cursor-pointer start'
     >
-      <div className='startIcon w-2/3 flex flex-col items-center justify-center'>
-        <ArrowBack />
+      <div className='flex flex-col items-center justify-center w-2/3 startIcon'>
+        <ArrowBack width={32} height={32} />
       </div>
     </motion.div>
   )
