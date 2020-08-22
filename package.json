@@ -5,6 +5,7 @@
     "main": "src/index.js",
     "dependencies": {
         "@fullhuman/postcss-purgecss": "^2.1.0",
+        "@types/lodash-es": "^4.17.3",
         "autoprefixer": "^9.7.4",
         "cssnano": "^4.1.10",
         "framer-motion": "1.8.4",
@@ -37,5 +38,7 @@
             "last 1 safari version"
         ]
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "@types/react": "^16.9.46"
+    }
 }
