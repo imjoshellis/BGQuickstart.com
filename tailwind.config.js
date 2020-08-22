@@ -1,4 +1,8 @@
 module.exports = {
+  purge: {
+    enabled: process.env.REACT_APP_PRODUCTION,
+    content: ['./src/**/*.tsx', './src/**/*.jsx']
+  },
   theme: {
     extend: {
       colors: {
