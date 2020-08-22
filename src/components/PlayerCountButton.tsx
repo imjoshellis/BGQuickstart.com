@@ -1,7 +1,15 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 
-export default ({ num, click }) => {
+interface PlayerCountButtonTypes {
+  num: number
+  handleClick: (n: number) => void
+}
+
+export const PlayerCountButton: React.FC<PlayerCountButtonTypes> = ({
+  num,
+  handleClick
+}) => {
   const styles =
     'py-8 px-8 text-gray-900 bg-gray-600 rounded-lg text-xl font-bold cursor-pointer shadow-lg'
   // Cascading entrance render
@@ -36,9 +44,11 @@ export default ({ num, click }) => {
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.35, delay: delay }}
       className={styles}
-      onClick={click}
+      onClick={() => handleClick(num)}
     >
       {num}
     </motion.div>
   )
 }
+
+export default PlayerCountButton
