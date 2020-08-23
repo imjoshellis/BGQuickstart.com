@@ -7,6 +7,8 @@
 
 Just head over to [BGQuickstart.com](https://bgquickstart.com), choose how many players, and start playing!
 
+![Demo GIF](https://github.com/imjoshellis/BGQuickstart.com/blob/master/readme/bgqs-demo.gif?raw=true)
+
 ## Why
 
 I built this app because the available options for choosing a start player when playing board games didn't do what I wanted them to do: Pick a player quickly so we can start playing.
