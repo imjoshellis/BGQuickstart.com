@@ -1,17 +1,16 @@
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useContext } from 'react'
+import PlayerCountContext from '../PlayerCountContext'
 
 interface PlayerCountButtonTypes {
   num: number
-  handleClick: (n: number) => void
 }
 
 export const PlayerCountButton: React.FC<PlayerCountButtonTypes> = ({
-  num,
-  handleClick
+  num
 }) => {
-  const styles =
-    'py-8 px-8 text-gray-900 bg-gray-600 rounded-lg text-xl font-bold cursor-pointer shadow-lg'
+  const { setPlayerCount } = useContext(PlayerCountContext)!
+
   // Cascading entrance render
   let delay = 0
   switch (num) {
@@ -33,6 +32,7 @@ export const PlayerCountButton: React.FC<PlayerCountButtonTypes> = ({
     default:
       delay = 0
   }
+
   return (
     <motion.div
       whileHover={{
@@ -43,8 +43,8 @@ export const PlayerCountButton: React.FC<PlayerCountButtonTypes> = ({
       initial={{ scale: 0.95, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.35, delay: delay }}
-      className={styles}
-      onClick={() => handleClick(num)}
+      className='px-8 py-8 text-xl font-bold text-gray-900 bg-gray-600 rounded-lg shadow-lg cursor-pointer'
+      onClick={() => setPlayerCount(num)}
     >
       {num}
     </motion.div>

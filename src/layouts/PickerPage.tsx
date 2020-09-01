@@ -10,7 +10,7 @@ export const PickerPage: React.FC<PickerPageProps> = () => {
     <>
       <div className='grid grid-cols-3 gap-4'>
         {PLAYER_COUNTS.map(n => (
-          <PlayerCountButton key={n} num={n} handleClick={() => null} />
+          <PlayerCountButton key={n} num={n} />
         ))}
       </div>
     </>
