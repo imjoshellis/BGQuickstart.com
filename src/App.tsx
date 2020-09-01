@@ -27,7 +27,7 @@ export default function App () {
     <MainLayout>
       <Header />
       <PlayerCountContext.Provider value={providerStartPlayerCount}>
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence exitBeforeEnter initial={false}>
           {playerCount === 0 ? (
             <motion.div {...motionProps} key='grid'>
               <PlayerCountGrid />
