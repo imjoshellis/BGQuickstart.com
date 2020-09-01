@@ -1,4 +1,3 @@
-import range from 'lodash-es/range'
 import React from 'react'
 import { PlayerSeat } from './index'
 
@@ -11,19 +10,22 @@ const PlayerSeats: React.FC<PlayerSeatsTypes> = ({
   playerCount,
   startPlayer
 }) => {
-  const playerSeats = range(playerCount)
+  const playerSeats = [] as number[]
+  for (let i = 1; i <= playerCount; i++) {
+    playerSeats.push(i)
+  }
+
   return (
     <>
-      {playerSeats.map(pIdx => {
-        const angle = (360 / playerCount) * pIdx + 225 + 'deg'
-        const rotateItem = 'rotate(' + angle + ')'
+      {playerSeats.map(seatNumber => {
+        const angle = (360 / playerCount) * seatNumber + 225 + 'deg'
+        const rotateString = 'rotate(' + angle + ')'
         return (
           <PlayerSeat
-            key={'player-seat-' + pIdx}
-            pIdx={pIdx}
-            rotateString={rotateItem}
+            key={'player-seat-' + seatNumber}
+            seatNumber={seatNumber}
+            rotateString={rotateString}
             startPlayer={startPlayer}
-            playerCount={playerCount}
           />
         )
       })}
