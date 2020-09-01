@@ -27,7 +27,7 @@ export const SpinnerPage: React.FC<SpinnerPageProps> = () => {
 
   useEffect(() => {
     chooseStartPlayer()
-  }, [])
+  }, [chooseStartPlayer])
 
   const reset = () => {
     setPlayerCount(0)
