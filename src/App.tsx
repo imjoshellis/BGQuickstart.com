@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import './css/styles.css'
 import './css/tailwind.css'
-import { SpinnerPage } from './layouts'
 import Header from './layouts/Header'
 import MainLayout from './layouts/MainLayout'
-import PickerPage from './layouts/PickerPage'
 import PlayerCountContext from './PlayerCountContext'
+import PlayerCountGrid from './PlayerCountGrid'
+import StartPlayerSpinner from './StartPlayerSpinner'
 
 export default function App () {
   const [playerCount, setPlayerCount] = useState(0)
@@ -19,7 +19,7 @@ export default function App () {
     <MainLayout>
       <Header />
       <PlayerCountContext.Provider value={providerStartPlayerCount}>
-        {playerCount === 0 ? <PickerPage /> : <SpinnerPage />}
+        {playerCount === 0 ? <PlayerCountGrid /> : <StartPlayerSpinner />}
       </PlayerCountContext.Provider>
     </MainLayout>
   )

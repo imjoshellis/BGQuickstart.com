@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const ArrowBack = ({
+const ArrowBack = ({
   fill = 'currentColor',
   width = '100%',
   height = '100%'

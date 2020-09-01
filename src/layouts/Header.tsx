@@ -2,7 +2,7 @@ import React from 'react'
 
 interface HeaderProps {}
 
-export const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = () => {
   return (
     <>
       <h1 className='text-4xl font-bold text-gray-200 '>BG QuickStart</h1>

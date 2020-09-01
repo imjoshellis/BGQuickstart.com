@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Shuffle: React.FC<{ fill?: string; width?: string; height?: string }> = ({
+const Shuffle = ({
   fill = 'currentColor',
   width = '100%',
   height = '100%'

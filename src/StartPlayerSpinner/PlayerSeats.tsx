@@ -1,13 +1,13 @@
-import React from 'react'
-import PlayerSeat from './PlayerSeat'
 import range from 'lodash-es/range'
+import React from 'react'
+import { PlayerSeat } from './index'
 
 interface PlayerSeatsTypes {
   playerCount: number
   startPlayer: number
 }
 
-export const PlayerSeats: React.FC<PlayerSeatsTypes> = ({
+const PlayerSeats: React.FC<PlayerSeatsTypes> = ({
   playerCount,
   startPlayer
 }) => {

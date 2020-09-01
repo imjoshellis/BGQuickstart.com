@@ -6,9 +6,7 @@ interface PlayerCountButtonTypes {
   num: number
 }
 
-export const PlayerCountButton: React.FC<PlayerCountButtonTypes> = ({
-  num
-}) => {
+const PlayerCountButton: React.FC<PlayerCountButtonTypes> = ({ num }) => {
   const { setPlayerCount } = useContext(PlayerCountContext)!
 
   // Cascading entrance render

@@ -1,11 +1,9 @@
 import React from 'react'
-import PlayerCountButton from '../components/PlayerCountButton'
+import { PlayerCountButton } from './index'
 
 const PLAYER_COUNTS = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-interface PickerPageProps {}
-
-export const PickerPage: React.FC<PickerPageProps> = () => {
+const PlayerCountGrid: React.FC = () => {
   return (
     <>
       <div className='grid grid-cols-3 gap-4'>
@@ -17,4 +15,4 @@ export const PickerPage: React.FC<PickerPageProps> = () => {
   )
 }
 
-export default PickerPage
+export default PlayerCountGrid

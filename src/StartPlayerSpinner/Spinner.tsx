@@ -1,6 +1,5 @@
 import React from 'react'
-import PlayerSeats from './PlayerSeats'
-import StartPlayerIcon from './StartPlayerIcon'
+import { StartPlayerArrow, PlayerSeats } from './index'
 
 interface SpinnerTypes {
   startPlayer: number
@@ -13,7 +12,7 @@ interface SpinnerTypes {
   isRotationClockwise: boolean
 }
 
-export const Spinner: React.FC<SpinnerTypes> = ({
+const Spinner: React.FC<SpinnerTypes> = ({
   startPlayer,
   playerCount,
   chooseStartPlayer,
@@ -24,7 +23,7 @@ export const Spinner: React.FC<SpinnerTypes> = ({
     <div className='dotWrap'>
       <PlayerSeats startPlayer={startPlayer} playerCount={playerCount} />
       <div className='m-auto startBox'>
-        <StartPlayerIcon
+        <StartPlayerArrow
           chooseStartPlayer={chooseStartPlayer}
           isRotationClockwise={isRotationClockwise}
           angle={angle}

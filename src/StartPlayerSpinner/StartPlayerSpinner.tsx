@@ -1,10 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { ArrowBack, Button, Shuffle, Spinner } from '../components'
+import { ArrowBack, Button, Shuffle, Spinner } from './index'
 import PlayerCountContext from '../PlayerCountContext'
 
-interface SpinnerPageProps {}
-
-export const SpinnerPage: React.FC<SpinnerPageProps> = () => {
+const StartPlayerSpinner: React.FC = () => {
   const { playerCount, setPlayerCount } = useContext(PlayerCountContext)!
   const [isRotationClockwise, setIsRotationClockwise] = useState(true)
   const [startPlayer, setStartPlayer] = useState(0)
@@ -72,4 +70,4 @@ export const SpinnerPage: React.FC<SpinnerPageProps> = () => {
   )
 }
 
-export default SpinnerPage
+export default StartPlayerSpinner

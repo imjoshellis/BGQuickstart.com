@@ -7,12 +7,15 @@ interface ButtonTypes {
   children: JSX.Element
 }
 
-export const Button: React.FC<ButtonTypes> = ({
+const Button: React.FC<ButtonTypes> = ({
   handleClick,
   colorStyle,
   children
 }) => (
   <motion.div
+    initial={{ opacity: 0, y: -5 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.35 }}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     onClick={() => handleClick()}

@@ -1,5 +1,5 @@
-import React from 'react'
 import { motion } from 'framer-motion'
+import React from 'react'
 
 interface PlayerSeatTypes {
   rotateString: string
@@ -7,7 +7,7 @@ interface PlayerSeatTypes {
   startPlayer: number
   playerCount: number
 }
-export const PlayerSeat: React.FC<PlayerSeatTypes> = ({
+const PlayerSeat: React.FC<PlayerSeatTypes> = ({
   rotateString,
   pIdx,
   startPlayer,
@@ -21,7 +21,7 @@ export const PlayerSeat: React.FC<PlayerSeatTypes> = ({
           initial={{ opacity: 0 }}
           transition={{ delay: 0.35 }}
           animate={{ opacity: 1 }}
-          className='w-8 h-8 bg-gray-500 rounded-full dotItem dot'
+          className='w-8 h-8 bg-gray-400 rounded-full dotItem dot'
         />
       )}
     </div>

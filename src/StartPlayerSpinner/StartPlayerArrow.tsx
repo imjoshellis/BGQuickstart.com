@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import React from 'react'
-import ArrowBack from './ArrowBack'
+import { ArrowBack } from './index'
 
-interface StartPlayerIconTypes {
+interface StartPlayerArrowTypes {
   chooseStartPlayer: () => void
   isRotationClockwise: boolean
   angle: {
@@ -11,7 +11,7 @@ interface StartPlayerIconTypes {
   }
 }
 
-export const StartPlayerIcon: React.FC<StartPlayerIconTypes> = ({
+const StartPlayerArrow: React.FC<StartPlayerArrowTypes> = ({
   chooseStartPlayer,
   isRotationClockwise,
   angle
@@ -37,4 +37,4 @@ export const StartPlayerIcon: React.FC<StartPlayerIconTypes> = ({
   )
 }
 
-export default StartPlayerIcon
+export default StartPlayerArrow
