@@ -8,6 +8,8 @@ import './css/tailwind.css'
 import Shuffle from './icons/Shuffle'
 import MainLayout from './layouts/MainLayout'
 import Header from './layouts/Header'
+import PickerPage from './layouts/PickerPage'
+import SpinnerPage from './layouts/SpinnerPage'
 
 export default function App () {
   const [startPlayer, setStartPlayer] = useState(0)
@@ -48,6 +50,10 @@ export default function App () {
   return (
     <MainLayout>
       <Header />
+      <div className='flex'>
+        <PickerPage />
+        <SpinnerPage />
+      </div>
       <AnimatePresence>
         <PageToggle
           on={on}
