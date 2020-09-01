@@ -55,21 +55,15 @@ const StartPlayerSpinner: React.FC = () => {
         <Button
           handleClick={reset}
           colorStyle='text-red-900 bg-red-300 hover:bg-red-200'
-        >
-          <>
-            <ArrowBack height='24' width='24' />
-            RESET
-          </>
-        </Button>
+          icon={<ArrowBack height='24' width='24' />}
+          label='reset'
+        />
         <Button
           handleClick={chooseStartPlayer}
           colorStyle='text-green-900 bg-green-400 hover:bg-green-300'
-        >
-          <>
-            <Shuffle height='24' width='24' />
-            REROLL
-          </>
-        </Button>
+          icon={<Shuffle height='24' width='24' />}
+          label='reroll'
+        />
       </div>
     </>
   )

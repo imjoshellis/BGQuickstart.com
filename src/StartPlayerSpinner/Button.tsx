@@ -4,13 +4,15 @@ import React from 'react'
 interface ButtonTypes {
   handleClick: () => void
   colorStyle: string
-  children: JSX.Element
+  label: string
+  icon: JSX.Element
 }
 
 const Button: React.FC<ButtonTypes> = ({
   handleClick,
   colorStyle,
-  children
+  label,
+  icon
 }) => (
   <motion.div
     initial={{ opacity: 0, y: -5 }}
@@ -22,7 +24,8 @@ const Button: React.FC<ButtonTypes> = ({
     className={`flex
 flex-row justify-around items-center p-3 px-4 rounded font-bold cursor-pointer shadow-lg ${colorStyle}`}
   >
-    <>{children}</>
+    {icon}
+    {label.toUpperCase()}
   </motion.div>
 )
 
