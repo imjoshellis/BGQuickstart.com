@@ -1,7 +1,7 @@
 {
   "name": "bg-quickstart",
   "version": "1.0.0",
-  "description": "The fastest way to pick a start player",
+  "description": "The fastest way to pick a start player.",
   "main": "src/index.js",
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.0",
