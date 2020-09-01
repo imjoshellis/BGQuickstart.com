@@ -1,6 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { ArrowBack, Button, Shuffle, Spinner } from './index'
 import PlayerCountContext from '../PlayerCountContext'
+import {
+  ArrowBack,
+  Button,
+  PlayerSeats,
+  Shuffle,
+  StartPlayerArrow
+} from './index'
 
 const StartPlayerSpinner: React.FC = () => {
   const { playerCount, setPlayerCount } = useContext(PlayerCountContext)!
@@ -34,17 +40,18 @@ const StartPlayerSpinner: React.FC = () => {
 
   return (
     <>
-      <Spinner
-        startPlayer={startPlayer}
-        playerCount={playerCount}
-        chooseStartPlayer={chooseStartPlayer}
-        angle={angle}
-        isRotationClockwise={isRotationClockwise}
-      />
+      <div className='dotWrap'>
+        <PlayerSeats startPlayer={startPlayer} playerCount={playerCount} />
+        <div className='m-auto startBox'>
+          <StartPlayerArrow
+            chooseStartPlayer={chooseStartPlayer}
+            isRotationClockwise={isRotationClockwise}
+            angle={angle}
+          />
+        </div>
+      </div>
       <p className='text-sm font-bold text-gray-700'>(YOU)</p>
-      <div
-        className='grid grid-cols-2 gap-4 mt-12'
-      >
+      <div className='grid grid-cols-2 gap-4 mt-12'>
         <Button
           handleClick={reset}
           colorStyle='text-red-900 bg-red-300 hover:bg-red-200'
