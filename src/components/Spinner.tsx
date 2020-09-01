@@ -5,31 +5,27 @@ import StartPlayerIcon from './StartPlayerIcon'
 interface SpinnerTypes {
   startPlayer: number
   playerCount: number
-  startFn: (n: number) => void
+  chooseStartPlayer: () => void
   lastRotation: number
   startRotation: number
-  on: boolean
-  setOn: (v: React.SetStateAction<boolean>) => void
+  isRotationClockwise: boolean
 }
 
 export const Spinner: React.FC<SpinnerTypes> = ({
   startPlayer,
-  on,
-  setOn,
   playerCount,
-  startFn,
+  chooseStartPlayer,
   lastRotation,
-  startRotation
+  startRotation,
+  isRotationClockwise
 }) => {
   return (
     <div className='dotWrap'>
       <PlayerSeats startPlayer={startPlayer} playerCount={playerCount} />
       <div className='m-auto startBox'>
         <StartPlayerIcon
-          startFn={startFn}
-          on={on}
-          setOn={setOn}
-          playerCount={playerCount}
+          chooseStartPlayer={chooseStartPlayer}
+          isRotationClockwise={isRotationClockwise}
           lastRotation={lastRotation}
           startRotation={startRotation}
         />

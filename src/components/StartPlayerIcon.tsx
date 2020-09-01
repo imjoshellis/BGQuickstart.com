@@ -3,23 +3,21 @@ import React from 'react'
 import ArrowBack from './ArrowBack'
 
 interface StartPlayerIconTypes {
-  startFn: (n: number) => void
-  playerCount: number
+  chooseStartPlayer: () => void
+  isRotationClockwise: boolean
   lastRotation: number
   startRotation: number
-  on: boolean
-  setOn: (v: React.SetStateAction<boolean>) => void
 }
 
 export const StartPlayerIcon: React.FC<StartPlayerIconTypes> = ({
-  startFn,
-  on,
-  setOn,
-  playerCount,
+  chooseStartPlayer,
+  isRotationClockwise,
   lastRotation,
   startRotation
 }) => {
-  const endRotation = on ? 360 * 3 + startRotation : startRotation
+  const endRotation = isRotationClockwise
+    ? 360 * 3 + startRotation
+    : startRotation
   return (
     <motion.div
       initial={{ width: 56, height: 56, rotate: lastRotation }}
@@ -27,8 +25,7 @@ export const StartPlayerIcon: React.FC<StartPlayerIconTypes> = ({
       transition={{ duration: 0.3 }}
       whileHover={{ backgroundColor: '#5F6163' }}
       onClick={() => {
-        setOn(!on)
-        startFn(playerCount)
+        chooseStartPlayer()
       }}
       className='flex flex-col items-center justify-center text-gray-500 bg-gray-800 border-2 border-gray-700 border-solid rounded-full cursor-pointer start'
     >
