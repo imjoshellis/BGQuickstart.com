@@ -6,8 +6,10 @@ interface SpinnerTypes {
   startPlayer: number
   playerCount: number
   chooseStartPlayer: () => void
-  lastRotation: number
-  startRotation: number
+  angle: {
+    next: number
+    prev: number
+  }
   isRotationClockwise: boolean
 }
 
@@ -15,8 +17,7 @@ export const Spinner: React.FC<SpinnerTypes> = ({
   startPlayer,
   playerCount,
   chooseStartPlayer,
-  lastRotation,
-  startRotation,
+  angle,
   isRotationClockwise
 }) => {
   return (
@@ -26,8 +27,7 @@ export const Spinner: React.FC<SpinnerTypes> = ({
         <StartPlayerIcon
           chooseStartPlayer={chooseStartPlayer}
           isRotationClockwise={isRotationClockwise}
-          lastRotation={lastRotation}
-          startRotation={startRotation}
+          angle={angle}
         />
       </div>
     </div>

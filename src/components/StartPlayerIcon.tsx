@@ -5,23 +5,24 @@ import ArrowBack from './ArrowBack'
 interface StartPlayerIconTypes {
   chooseStartPlayer: () => void
   isRotationClockwise: boolean
-  lastRotation: number
-  startRotation: number
+  angle: {
+    next: number
+    prev: number
+  }
 }
 
 export const StartPlayerIcon: React.FC<StartPlayerIconTypes> = ({
   chooseStartPlayer,
   isRotationClockwise,
-  lastRotation,
-  startRotation
+  angle
 }) => {
-  const endRotation = isRotationClockwise
-    ? 360 * 3 + startRotation
-    : startRotation
+  const adjustedNextRotation = isRotationClockwise
+    ? 360 * 3 + angle.next
+    : angle.next
   return (
     <motion.div
-      initial={{ width: 56, height: 56, rotate: lastRotation }}
-      animate={{ width: 48, height: 48, rotate: endRotation }}
+      initial={{ width: 56, height: 56, rotate: angle.prev }}
+      animate={{ width: 48, height: 48, rotate: adjustedNextRotation }}
       transition={{ duration: 0.3 }}
       whileHover={{ backgroundColor: '#5F6163' }}
       onClick={() => {

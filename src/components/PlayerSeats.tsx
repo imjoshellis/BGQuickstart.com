@@ -15,8 +15,8 @@ export const PlayerSeats: React.FC<PlayerSeatsTypes> = ({
   return (
     <>
       {playerSeats.map(pIdx => {
-        const rotation = (360 / playerCount) * pIdx + 225 + 'deg'
-        const rotateItem = 'rotate(' + rotation + ')'
+        const angle = (360 / playerCount) * pIdx + 225 + 'deg'
+        const rotateItem = 'rotate(' + angle + ')'
         return (
           <PlayerSeat
             key={'player-seat-' + pIdx}

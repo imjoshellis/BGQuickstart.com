@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { ArrowBack, Button, Shuffle, Spinner } from '../components'
 import PlayerCountContext from '../PlayerCountContext'
@@ -9,17 +8,22 @@ export const SpinnerPage: React.FC<SpinnerPageProps> = () => {
   const { playerCount, setPlayerCount } = useContext(PlayerCountContext)!
   const [isRotationClockwise, setIsRotationClockwise] = useState(true)
   const [startPlayer, setStartPlayer] = useState(0)
-  const [startRotation, setStartRotation] = useState(0)
-  const [lastRotation, setLastRotation] = useState(0)
+  const [angle, setAngle] = useState({ next: 0, prev: 0 })
 
   const chooseStartPlayer = useCallback(() => {
+    setIsRotationClockwise(state => !state)
+
     const newStartPlayer =
       Math.floor(Math.random() * Math.floor(playerCount)) + 1
-    setIsRotationClockwise(state => !state)
+
     setStartPlayer(newStartPlayer)
-    setLastRotation(startRotation)
-    setStartRotation((360 / playerCount) * newStartPlayer + 225)
-  }, [playerCount, startRotation])
+
+    const next = (360 / playerCount) * newStartPlayer + 225
+    setAngle(state => ({
+      prev: state.next,
+      next
+    }))
+  }, [playerCount])
 
   useEffect(() => {
     chooseStartPlayer()
@@ -28,7 +32,6 @@ export const SpinnerPage: React.FC<SpinnerPageProps> = () => {
   const reset = () => {
     setPlayerCount(0)
     setStartPlayer(0)
-    setLastRotation(0)
   }
 
   return (
@@ -37,8 +40,7 @@ export const SpinnerPage: React.FC<SpinnerPageProps> = () => {
         startPlayer={startPlayer}
         playerCount={playerCount}
         chooseStartPlayer={chooseStartPlayer}
-        lastRotation={lastRotation}
-        startRotation={startRotation}
+        angle={angle}
         isRotationClockwise={isRotationClockwise}
       />
       <p className='text-sm font-bold text-gray-700'>(YOU)</p>
