@@ -1,18 +1,12 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 
 interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = () => {
   return (
     <>
-      <motion.h1
-        positionTransition
-        className='text-4xl font-bold text-gray-200 '
-      >
-        BG QuickStart
-      </motion.h1>
-      <motion.h2 positionTransition className='mb-6 text-sm text-gray-500'>
+      <h1 className='text-4xl font-bold text-gray-200 '>BG QuickStart</h1>
+      <h2 className='mb-6 text-sm text-gray-500'>
         Built by{' '}
         <a
           className='text-gray-500 underline transition duration-500 ease-out hover:text-gray-300'
@@ -22,7 +16,7 @@ export const Header: React.FC<HeaderProps> = () => {
         >
           @imjoshellis
         </a>
-      </motion.h2>
+      </h2>
     </>
   )
 }
