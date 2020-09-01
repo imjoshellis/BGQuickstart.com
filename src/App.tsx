@@ -100,7 +100,7 @@ export default function App () {
           colorStyle='text-green-900 bg-green-400 hover:bg-green-300'
         >
           <>
-            <Shuffle height={24} width={24} />
+            <Shuffle height='24' width='24' />
             REROLL
           </>
         </Button>
