@@ -43,8 +43,6 @@ const StartPlayerSpinner: React.FC = () => {
       />
       <p className='text-sm font-bold text-gray-700'>(YOU)</p>
       <div
-        // initial={{ opacity: buttonRowOpacity }}
-        // animate={{ opacity: buttonRowOpacity }}
         className='grid grid-cols-2 gap-4 mt-12'
       >
         <Button
