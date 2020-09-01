@@ -6,6 +6,7 @@ import PageToggle from './components/PageToggle'
 import './css/styles.css'
 import './css/tailwind.css'
 import Shuffle from './icons/Shuffle'
+import MainLayout from './layouts/MainLayout'
 
 export default function App () {
   const [startPlayer, setStartPlayer] = useState(0)
@@ -44,7 +45,7 @@ export default function App () {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center px-4 py-8 text-gray-300 bg-gray-900 App'>
+    <MainLayout>
       <motion.h1
         positionTransition
         className='text-4xl font-bold text-gray-200 '
@@ -105,6 +106,6 @@ export default function App () {
           </>
         </Button>
       </motion.div>
-    </div>
+    </MainLayout>
   )
 }
