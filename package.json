@@ -1,6 +1,6 @@
 {
   "name": "bg-quickstart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The fastest way to pick a start player.",
   "main": "src/index.js",
   "dependencies": {
