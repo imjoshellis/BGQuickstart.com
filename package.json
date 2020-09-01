@@ -4,12 +4,9 @@
   "description": "The fastest way to pick a start player.",
   "main": "src/index.js",
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^2.1.0",
-    "@types/lodash-es": "^4.17.3",
     "autoprefixer": "^9.7.4",
     "cssnano": "^4.1.10",
     "framer-motion": "1.8.4",
-    "lodash-es": "4.17.15",
     "postcss-cli": "^7.1.0",
     "preact": "^10.4.7",
     "preact-compat": "^3.19.0",
