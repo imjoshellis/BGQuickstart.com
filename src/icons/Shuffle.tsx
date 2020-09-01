@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Shuffle2 (props) {
+function Shuffle (props) {
   const fill = props.fill || 'currentColor'
   const width = props.width || '100%'
   const height = props.height || '100%'
@@ -26,4 +26,4 @@ function Shuffle2 (props) {
   )
 }
 
-export default Shuffle2
+export default Shuffle

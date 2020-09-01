@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useState } from 'react'
 import ArrowBack from './components/ArrowBack'
+import Button from './components/Button'
 import PageToggle from './components/PageToggle'
 import './css/styles.css'
 import './css/tailwind.css'
-import Shuffle2 from './shuffle-2'
-import Button from './components/Button'
+import Shuffle from './icons/Shuffle'
 
 export default function App () {
   const [startPlayer, setStartPlayer] = useState(0)
@@ -100,7 +100,7 @@ export default function App () {
           colorStyle='text-green-900 bg-green-400 hover:bg-green-300'
         >
           <>
-            <Shuffle2 height={24} width={24} />
+            <Shuffle height={24} width={24} />
             REROLL
           </>
         </Button>
