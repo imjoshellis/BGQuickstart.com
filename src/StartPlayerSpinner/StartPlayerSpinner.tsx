@@ -15,13 +15,11 @@ const StartPlayerSpinner: React.FC = () => {
   const [angle, setAngle] = useState({ next: 0, prev: 0 })
 
   const chooseStartPlayer = useCallback(() => {
-    setIsRotationClockwise(state => !state)
-
     const newStartPlayer =
       Math.floor(Math.random() * Math.floor(playerCount)) + 1
-
     setStartPlayer(newStartPlayer)
 
+    setIsRotationClockwise(state => !state)
     const next = (360 / playerCount) * newStartPlayer + 225
     setAngle(state => ({
       prev: state.next,
