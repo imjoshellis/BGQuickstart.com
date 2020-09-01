@@ -50,7 +50,7 @@ const StartPlayerSpinner: React.FC = () => {
           />
         </div>
       </div>
-      <p className='text-sm font-bold text-gray-700'>(YOU)</p>
+      <p className='text-sm font-bold text-gray-400'>(YOU)</p>
       <div className='grid grid-cols-2 gap-4 mt-12'>
         <Button
           handleClick={reset}
