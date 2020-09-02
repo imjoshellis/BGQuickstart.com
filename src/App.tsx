@@ -1,110 +1,44 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import React, { useState } from 'react'
-import ArrowBack from './components/ArrowBack'
-import PageToggle from './components/PageToggle'
+import React, { useMemo, useState } from 'react'
 import './css/styles.css'
 import './css/tailwind.css'
-import Shuffle2 from './shuffle-2'
-import Button from './components/Button'
+import Header from './layouts/Header'
+import MainLayout from './layouts/MainLayout'
+import PlayerCountContext from './PlayerCountContext'
+import PlayerCountGrid from './PlayerCountGrid'
+import StartPlayerSpinner from './StartPlayerSpinner'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function App () {
-  const [startPlayer, setStartPlayer] = useState(0)
   const [playerCount, setPlayerCount] = useState(0)
-  const [picked, setPicked] = useState(false)
-  const [startRotation, setStartRotation] = useState(0)
-  const [lastRotation, setLastRotation] = useState(0)
-  const [buttonRowOpacity, setButtonRowOpacity] = useState(0)
-  const [on, setOn] = useState(true)
 
-  const randomInt = (max: number) => {
-    return Math.floor(Math.random() * Math.floor(max)) + 1
-  }
+  const providerStartPlayerCount = useMemo(
+    () => ({ playerCount, setPlayerCount }),
+    [playerCount, setPlayerCount]
+  )
 
-  const playerCountClick = (n: number) => {
-    setPlayerCount(n)
-    startFn(n)
-    setPicked(true)
-    setButtonRowOpacity(1)
-  }
-
-  const startFn = (n: number) => {
-    const newStart = randomInt(n)
-    setStartPlayer(newStart)
-    setLastRotation(startRotation)
-    setStartRotation((360 / n) * newStart + 225)
-  }
-
-  const reset = () => {
-    setPlayerCount(0)
-    setStartPlayer(0)
-    setLastRotation(0)
-    setPicked(false)
-    setOn(true)
-    setButtonRowOpacity(0)
+  const motionProps = {
+    initial: { opacity: 0, y: -10, scale: 0.9 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    exit: { opacity: 0, y: 10, scale: 0.9 },
+    transition: { duration: 0.1, ease: 'easeOut' }
   }
 
   return (
-    <div className='flex flex-col items-center justify-center px-4 py-8 text-gray-300 bg-gray-900 App'>
-      <motion.h1
-        positionTransition
-        className='text-4xl font-bold text-gray-200 '
-      >
-        BG QuickStart
-      </motion.h1>
-      <motion.h2 positionTransition className='mb-6 text-sm text-gray-500'>
-        Built by{' '}
-        <a
-          className='text-gray-500 underline transition duration-500 ease-out hover:text-gray-300'
-          href='https://github.com/imjoshellis'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          @imjoshellis
-        </a>
-      </motion.h2>
-
-      <AnimatePresence>
-        <PageToggle
-          on={on}
-          setOn={setOn}
-          picked={picked}
-          buttonRowOpacity={buttonRowOpacity}
-          playerCountClick={playerCountClick}
-          startPlayer={startPlayer}
-          startFn={startFn}
-          playerCount={playerCount}
-          lastRotation={lastRotation}
-          startRotation={startRotation}
-        />
-      </AnimatePresence>
-      <motion.div
-        positionTransition
-        initial={{ opacity: buttonRowOpacity }}
-        animate={{ opacity: buttonRowOpacity }}
-        className='grid grid-cols-2 gap-4 mt-12'
-      >
-        <Button
-          handleClick={reset}
-          colorStyle='text-red-900 bg-red-300 hover:bg-red-200'
-        >
-          <>
-            <ArrowBack height='24' width='24' />
-            RESET
-          </>
-        </Button>
-        <Button
-          handleClick={() => {
-            setOn(!on)
-            startFn(playerCount)
-          }}
-          colorStyle='text-green-900 bg-green-400 hover:bg-green-300'
-        >
-          <>
-            <Shuffle2 height={24} width={24} />
-            REROLL
-          </>
-        </Button>
-      </motion.div>
-    </div>
+    <MainLayout>
+      <Header />
+      <PlayerCountContext.Provider value={providerStartPlayerCount}>
+        <AnimatePresence exitBeforeEnter initial={false}>
+          {playerCount === 0 ? (
+            <motion.div {...motionProps} key='grid'>
+              <PlayerCountGrid />
+            </motion.div>
+          ) : (
+            <motion.div {...motionProps} key='spinner'>
+              <StartPlayerSpinner />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </PlayerCountContext.Provider>
+    </MainLayout>
   )
 }
