@@ -4,19 +4,19 @@
   "description": "The fastest way to pick a start player.",
   "main": "src/index.js",
   "dependencies": {
-    "autoprefixer": "^9.7.4",
-    "cssnano": "^4.1.10",
-    "framer-motion": "1.8.4",
-    "postcss-cli": "^7.1.0",
+    "autoprefixer": "10.0.1",
+    "cssnano": "4.1.10",
+    "framer-motion": "2.7.7",
+    "postcss-cli": "8.0.0",
     "preact": "^10.4.7",
-    "preact-compat": "^3.19.0",
-    "react": "16.12.0",
-    "react-app-rewired": "^2.1.6",
-    "react-dom": "16.12.0",
-    "react-scripts": "3.0.1",
+    "preact-compat": "3.19.0",
+    "react": "16.13.1",
+    "react-app-rewired": "2.1.6",
+    "react-dom": "16.13.1",
+    "react-scripts": "3.4.3",
     "react-spring": "8.0.27",
-    "tailwindcss": "^1.2.0",
-    "typescript": "^3.8.2"
+    "tailwindcss": "1.8.10",
+    "typescript": "4.0.3"
   },
   "scripts": {
     "start": "npm run watch:css && react-app-rewired start",
@@ -28,7 +28,11 @@
     "watch:css": "tailwindcss build src/css/tailwind.src.css -o src/css/tailwind.css"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -36,7 +40,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^16.9.46",
-    "customize-cra": "^1.0.0"
+    "@types/react": "16.9.50",
+    "customize-cra": "1.0.0"
   }
 }
