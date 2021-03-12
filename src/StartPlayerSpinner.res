@@ -1,5 +1,3 @@
-open Belt
-
 module Button = {
   @react.component
   let make = (~handleClick, ~className, ~icon, ~label) => {

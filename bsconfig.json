@@ -1,6 +1,11 @@
 {
-  "bs-dependencies": ["@rescript/react"],
-  "bsc-flags": ["-bs-super-errors"],
+  "bs-dependencies": [
+    "@rescript/react"
+  ],
+  "bsc-flags": [
+    "-bs-super-errors",
+    "-open Belt"
+  ],
   "gentypeconfig": {
     "language": "untyped"
   },

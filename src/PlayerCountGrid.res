@@ -1,5 +1,3 @@
-open Belt
-
 module CountButton = {
   @react.component
   let make = (~num: int, ~setCount) => {
