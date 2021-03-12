@@ -1,4 +1,4 @@
 import './Index.bs'
-import * as serviceWorker from './serviceWorker'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
-serviceWorker.register()
+serviceWorkerRegistration.register()
