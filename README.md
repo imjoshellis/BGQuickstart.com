@@ -15,7 +15,7 @@ I built this app because the available options for choosing a start player when 
 
 ## 👨🏻‍💻 Tech
 
-BGQuickstart is built and deployed automatically by Netlify whenever changes are pushed to the main branch here on GitHub. It uses Create-React-App with ReScript and Service Workers enabled. The ui was built using Tailwind CSS with a custom color scheme.
+BGQuickstart is built and deployed automatically by Netlify whenever changes are pushed to `main` here on GitHub. It uses Create-React-App with ReScript and Service Workers enabled. The ui was built using Tailwind CSS with a custom color scheme.
 
 ## ⚡ Lighthouse Audit (it's fast!)
 
