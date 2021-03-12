@@ -8,22 +8,16 @@
     "autoprefixer": "10.0.1",
     "cssnano": "4.1.10",
     "framer-motion": "^2.7.7",
-    "postcss-cli": "^8.0.0",
-    "preact": "^10.4.7",
-    "preact-compat": "3.19.0",
     "react": "^16.3.1",
-    "react-app-rewired": "2.1.6",
     "react-dom": "^16.3.1",
     "react-scripts": "^4.0.3",
-    "react-spring": "8.0.27",
-    "tailwindcss": "^1.8.10",
-    "typescript": "4.0.3"
+    "tailwindcss": "^1.8.10"
   },
   "scripts": {
-    "start": "npm run watch:css && react-app-rewired start",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
-    "build": "react-app-rewired build",
+    "start": "npm run watch:css && react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build": "react-scripts build",
     "prebuild": "REACT_APP_PRODUCTION=true npm run build:css && npm run re:build",
     "re:build": "bsb -make-world -clean-world",
     "re:watch": "bsb -make-world -clean-world -w",
@@ -39,7 +33,6 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "16.9.53",
     "bs-platform": "^9.0.1",
     "customize-cra": "1.0.0",
     "gentype": "^3.44.0"
