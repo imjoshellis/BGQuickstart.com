@@ -4,6 +4,7 @@
   "description": "The fastest way to pick a start player.",
   "main": "src/index.js",
   "dependencies": {
+    "@rescript/react": "^0.10.1",
     "autoprefixer": "10.0.1",
     "cssnano": "4.1.10",
     "framer-motion": "^2.7.7",
@@ -23,7 +24,9 @@
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "build": "react-app-rewired build",
-    "prebuild": "REACT_APP_PRODUCTION=true npm run build:css",
+    "prebuild": "REACT_APP_PRODUCTION=true npm run build:css && npm run re:build",
+    "re:build": "bsb -make-world -clean-world",
+    "re:watch": "bsb -make-world -clean-world -w",
     "build:css": "tailwindcss build src/css/tailwind.src.css -o src/css/tailwind.css",
     "watch:css": "tailwindcss build src/css/tailwind.src.css -o src/css/tailwind.css"
   },
@@ -37,6 +40,8 @@
   },
   "devDependencies": {
     "@types/react": "16.9.53",
-    "customize-cra": "1.0.0"
+    "bs-platform": "^9.0.1",
+    "customize-cra": "1.0.0",
+    "gentype": "^3.44.0"
   }
 }

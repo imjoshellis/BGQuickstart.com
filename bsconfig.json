@@ -1,0 +1,27 @@
+{
+  "bs-dependencies": ["@rescript/react"],
+  "bsc-flags": ["-bs-super-errors"],
+  "gentypeconfig": {
+    "language": "untyped"
+  },
+  "name": "bgquickstart.com",
+  "namespace": true,
+  "package-specs": [
+    {
+      "in-source": true,
+      "module": "es6"
+    }
+  ],
+  "ppx-flags": [],
+  "reason": {
+    "react-jsx": 3
+  },
+  "refmt": 3,
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "suffix": ".bs.js"
+}

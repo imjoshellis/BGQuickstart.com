@@ -2,3 +2,6 @@ node_modules/
 build/
 .DS_Store
 src/css/tailwind.css
+
+.merlin
+lib
