@@ -5,3 +5,5 @@ src/css/tailwind.css
 
 .merlin
 lib
+# Local Netlify folder
+.netlify
