@@ -1,7 +1,7 @@
 module.exports = {
   purge: {
     enabled: process.env.REACT_APP_PRODUCTION,
-    content: ['./src/**/*.js']
+    content: ['./src/**/*.res']
   },
   theme: {
     extend: {
