@@ -7,7 +7,7 @@ The fastest way to choose a start player.
 
 Just head over to [BGQuickstart.com](https://bgquickstart.com), choose how many players, and start playing!
 
-![Demo GIF](https://github.com/imjoshellis/BGQuickstart.com/blob/master/readme/bgqs-demo.gif?raw=true)
+![Demo GIF](https://github.com/imjoshellis/BGQuickstart.com/blob/main/readme/bgqs-demo.gif?raw=true)
 
 ## 🤷🏻‍♂️ Why
 
