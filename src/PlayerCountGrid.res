@@ -1,9 +1,11 @@
 module CountButton = {
   @react.component
-  let make = (~num: int, ~setCount) => {
+  let make = (~num: int) => {
+    let dispatch = React.useContext(Model.Dispatch.ctx)
+
     let whileHover = Animation.Style.make(~scale=1.05, ~backgroundColor="#CCD5E1", ())
     let whileTap = Animation.Style.make(~scale=1.05, ~backgroundColor="#EDF2F7", ())
-    let onClick = () => setCount(_ => num)
+    let onClick = () => dispatch(Model.Roll({count: num}))
 
     <Animation.Div
       whileHover
@@ -16,12 +18,10 @@ module CountButton = {
 }
 
 @react.component
-let make = (~setCount) => {
+let make = () => {
   <>
     <div className="grid grid-cols-3 gap-4">
-      {Array.range(2, 10)
-      ->Array.map(n => <CountButton setCount key={Int.toString(n)} num={n} />)
-      ->React.array}
+      {Constants.range->Array.map(n => <CountButton key={Int.toString(n)} num={n} />)->React.array}
     </div>
   </>
 }
