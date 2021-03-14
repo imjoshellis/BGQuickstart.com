@@ -6,7 +6,6 @@ src/css/tailwind.css
 # ReScript
 .merlin
 lib
-*.bs.js
 .bsb.lock
 
 # Local Netlify folder
