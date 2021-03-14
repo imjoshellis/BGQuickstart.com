@@ -1,6 +1,6 @@
 module Button = {
   @react.component
-  let make = (~handleClick, ~className, ~icon, ~label) => {
+  let make = (~onClick, ~className, ~icon, ~label) => {
     <Animation.Div
       initial={Animation.Style.make(~opacity=0.0, ~y=-5, ())}
       animate={Animation.Style.make(~opacity=1.0, ~y=0, ())}
@@ -9,7 +9,7 @@ module Button = {
         transition={Animation.Style.make(~duration=0.125, ())}
         whileHover={Animation.Style.make(~scale=1.05, ())}
         whileTap={Animation.Style.make(~scale=0.95, ())}
-        onClick={() => handleClick()}
+        onClick
         className={"flex flex-row justify-around items-center p-3 px-4 rounded font-bold cursor-pointer shadow-lg " ++
         className}>
         {icon} {React.string(Js.String2.toUpperCase(label))}
@@ -50,14 +50,11 @@ module Shuffle = {
 
 module StartPlayerArrow = {
   @react.component
-  let make = (~chooseStartPlayer, ~isRotationClockwise, ~angle) => {
-    let adjustedNextRotation = isRotationClockwise ? 360 * 3 + angle["next"] : angle["next"]
-
-    let initial = Animation.Style.make(~width=56, ~height=56, ~rotate=angle["prev"], ())
-    let animate = Animation.Style.make(~width=56, ~height=56, ~rotate=adjustedNextRotation, ())
+  let make = (~angle, ~prevAngle, ~onClick) => {
+    let initial = Animation.Style.make(~width=56, ~height=56, ~rotate=prevAngle, ())
+    let animate = Animation.Style.make(~width=56, ~height=56, ~rotate=angle, ())
     let transition = Animation.Style.make(~duration=0.125, ())
     let whileHover = Animation.Style.make(~backgroundColor="#5F6163", ())
-    let onClick = () => chooseStartPlayer()
     <Animation.Div
       initial
       animate
@@ -74,10 +71,10 @@ module StartPlayerArrow = {
 
 module PlayerSeat = {
   @react.component
-  let make = (~rotateString, ~seatNumber, ~startPlayer) => {
+  let make = (~rotateString, ~seatNumber, ~player) => {
     <div style={ReactDOM.Style.make(~transform=rotateString, ())} className="m-auto dotBox">
       <Animation.Div className="w-8 h-8 bg-gray-800 rounded-full dotItem dot" />
-      {seatNumber == startPlayer
+      {seatNumber == player
         ? <Animation.Div
             initial={Animation.Style.make(~opacity=0.0, ())}
             animate={Animation.Style.make(~opacity=1.0, ())}
@@ -91,7 +88,7 @@ module PlayerSeat = {
 
 module PlayerSeats = {
   @react.component
-  let make = (~count, ~startPlayer) => {
+  let make = (~count, ~player) => {
     <>
       {Array.range(1, count)
       ->Array.map(seatNumber => {
@@ -99,7 +96,7 @@ module PlayerSeats = {
         let rotateString = `rotate(${angle})`
 
         <PlayerSeat
-          key={`player-seat-${Int.toString(seatNumber)}`} seatNumber rotateString startPlayer
+          key={`player-seat-${Int.toString(seatNumber)}`} seatNumber rotateString player
         />
       })
       ->React.array}
@@ -108,53 +105,26 @@ module PlayerSeats = {
 }
 
 @react.component
-let make = (~count, ~setCount) => {
-  let (isRotationClockwise, setIsRotationClockwise) = React.useState(() => true)
-  let (startPlayer, setStartPlayer) = React.useState(() => 0)
-  let (angle, setAngle) = React.useState(() => {"next": 0, "prev": 0})
-
-  let chooseStartPlayer = () => {
-    let newStartPlayer = Js.Math.floor_int(Js.Math.random() *. Int.toFloat(count)) + 1
-
-    setStartPlayer(_ => newStartPlayer)
-    setIsRotationClockwise(state => !state)
-
-    let next = 360 / count * newStartPlayer + 225
-    setAngle(state =>
-      {
-        "prev": state["next"],
-        "next": next,
-      }
-    )
-  }
-
-  React.useEffect1(() => {
-    chooseStartPlayer()
-    None
-  }, [count])
-
-  let reset = () => {
-    setCount(_ => 0)
-    setStartPlayer(_ => 0)
-  }
+let make = (~count, ~player, ~angle, ~prevAngle) => {
+  let dispatch = React.useContext(Model.Dispatch.ctx)
+  let reroll = () => dispatch(Model.Roll({count: count}))
+  let reset = () => dispatch(Model.Reset)
 
   <>
     <div className="dotWrap">
-      <PlayerSeats startPlayer count />
-      <div className="m-auto startBox">
-        <StartPlayerArrow chooseStartPlayer isRotationClockwise angle />
-      </div>
+      <PlayerSeats count player />
+      <div className="m-auto startBox"> <StartPlayerArrow onClick={reroll} angle prevAngle /> </div>
     </div>
     <p className="text-sm font-bold text-gray-400"> {React.string("(YOU)")} </p>
     <div className="grid grid-cols-2 gap-4 mt-12">
       <Button
-        handleClick={reset}
+        onClick={reset}
         className="text-red-900 bg-red-300 hover:bg-red-200"
         icon={<ArrowBack height="24" width="24" />}
         label="reset"
       />
       <Button
-        handleClick={chooseStartPlayer}
+        onClick={reroll}
         className="text-green-900 bg-green-400 hover:bg-green-300"
         icon={<Shuffle height="24" width="24" />}
         label="reroll"

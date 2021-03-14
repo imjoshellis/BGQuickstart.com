@@ -26,14 +26,16 @@ module ThePage = {
   open Animation
 
   @react.component
-  let make = (~count, ~setCount) => {
+  let make = () => {
+    let state = React.useContext(Model.State.ctx)
+
     <Presence exitBeforeEnter=true initial=false>
-      {switch count {
-      | 0 => <Div initial animate exit transition key="grid"> <PlayerCountGrid setCount /> </Div>
-      | _ =>
+      {switch state {
+      | {count: Some(count), player: Some(player), angle, prevAngle} =>
         <Div initial animate exit transition key="spinner">
-          <StartPlayerSpinner count setCount />
+          <StartPlayerSpinner count player angle prevAngle />
         </Div>
+      | _ => <Div initial animate exit transition key="grid"> <PlayerCountGrid /> </Div>
       }}
     </Presence>
   }
@@ -42,11 +44,9 @@ module ThePage = {
 module Main = {
   @react.component
   let make = () => {
-    let (count, setCount) = React.useState(() => 0)
-
     <div
       className="flex flex-col items-center justify-center px-4 py-8 text-gray-300 bg-gray-900 App">
-      <Header /> <ThePage count setCount />
+      <Header /> <ThePage />
     </div>
   }
 }

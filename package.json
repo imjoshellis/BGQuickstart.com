@@ -5,13 +5,11 @@
   "main": "src/index.js",
   "dependencies": {
     "@rescript/react": "^0.10.1",
-    "autoprefixer": "10.0.1",
     "cssnano": "4.1.10",
     "framer-motion": "^2.7.7",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-scripts": "^4.0.3",
-    "tailwindcss": "^1.8.10"
+    "react-scripts": "^4.0.3"
   },
   "scripts": {
     "start": "npm run watch:css && react-scripts start",
@@ -35,6 +33,9 @@
   "devDependencies": {
     "bs-platform": "^9.0.1",
     "customize-cra": "1.0.0",
-    "gentype": "^3.44.0"
+    "gentype": "^3.44.0",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.0",
+    "autoprefixer": "10.0.1"
   }
 }

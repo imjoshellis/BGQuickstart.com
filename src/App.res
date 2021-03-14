@@ -7,5 +7,5 @@ import './css/tailwind.css'
 
 @react.component
 let make = () => {
-  <Layout.Main />
+  <Model> <Layout.Main /> </Model>
 }

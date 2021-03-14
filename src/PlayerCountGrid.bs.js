@@ -4,10 +4,12 @@ import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as FramerMotion from "framer-motion";
+import * as Model$Bgquickstartcom from "./Model.bs.js";
+import * as Constants$Bgquickstartcom from "./Constants.bs.js";
 
 function PlayerCountGrid$CountButton(Props) {
   var num = Props.num;
-  var setCount = Props.setCount;
+  var dispatch = React.useContext(Model$Bgquickstartcom.Dispatch.ctx);
   var whileHover = {
     backgroundColor: "#CCD5E1",
     scale: 1.05
@@ -17,9 +19,9 @@ function PlayerCountGrid$CountButton(Props) {
     scale: 1.05
   };
   var onClick = function (param) {
-    return Curry._1(setCount, (function (param) {
-                  return num;
-                }));
+    return Curry._1(dispatch, /* Roll */{
+                count: num
+              });
   };
   return React.createElement(FramerMotion.motion.div, {
               children: num,
@@ -35,13 +37,11 @@ var CountButton = {
 };
 
 function PlayerCountGrid(Props) {
-  var setCount = Props.setCount;
   return React.createElement(React.Fragment, undefined, React.createElement("div", {
                   className: "grid grid-cols-3 gap-4"
-                }, Belt_Array.map(Belt_Array.range(2, 10), (function (n) {
+                }, Belt_Array.map(Constants$Bgquickstartcom.range, (function (n) {
                         return React.createElement(PlayerCountGrid$CountButton, {
                                     num: n,
-                                    setCount: setCount,
                                     key: String(n)
                                   });
                       }))));

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as FramerMotion from "framer-motion";
+import * as Model$Bgquickstartcom from "./Model.bs.js";
 import * as PlayerCountGrid$Bgquickstartcom from "./PlayerCountGrid.bs.js";
 import * as StartPlayerSpinner$Bgquickstartcom from "./StartPlayerSpinner.bs.js";
 
@@ -46,31 +47,46 @@ var transition = {
 };
 
 function Layout$ThePage(Props) {
-  var count = Props.count;
-  var setCount = Props.setCount;
+  var state = React.useContext(Model$Bgquickstartcom.State.ctx);
+  var count = state.count;
+  var tmp;
+  var exit$1 = 0;
+  if (count !== undefined) {
+    var player = state.player;
+    if (player !== undefined) {
+      tmp = React.createElement(FramerMotion.motion.div, {
+            children: React.createElement(StartPlayerSpinner$Bgquickstartcom.make, {
+                  count: count,
+                  player: player,
+                  angle: state.angle,
+                  prevAngle: state.prevAngle
+                }),
+            exit: exit,
+            initial: initial,
+            animate: animate,
+            transition: transition,
+            key: "spinner"
+          });
+    } else {
+      exit$1 = 1;
+    }
+  } else {
+    exit$1 = 1;
+  }
+  if (exit$1 === 1) {
+    tmp = React.createElement(FramerMotion.motion.div, {
+          children: React.createElement(PlayerCountGrid$Bgquickstartcom.make, {}),
+          exit: exit,
+          initial: initial,
+          animate: animate,
+          transition: transition,
+          key: "grid"
+        });
+  }
   return React.createElement(FramerMotion.AnimatePresence, {
               initial: false,
               exitBeforeEnter: true,
-              children: count !== 0 ? React.createElement(FramerMotion.motion.div, {
-                      children: React.createElement(StartPlayerSpinner$Bgquickstartcom.make, {
-                            count: count,
-                            setCount: setCount
-                          }),
-                      exit: exit,
-                      initial: initial,
-                      animate: animate,
-                      transition: transition,
-                      key: "spinner"
-                    }) : React.createElement(FramerMotion.motion.div, {
-                      children: React.createElement(PlayerCountGrid$Bgquickstartcom.make, {
-                            setCount: setCount
-                          }),
-                      exit: exit,
-                      initial: initial,
-                      animate: animate,
-                      transition: transition,
-                      key: "grid"
-                    })
+              children: tmp
             });
 }
 
@@ -83,15 +99,9 @@ var ThePage = {
 };
 
 function Layout$Main(Props) {
-  var match = React.useState(function () {
-        return 0;
-      });
   return React.createElement("div", {
               className: "flex flex-col items-center justify-center px-4 py-8 text-gray-300 bg-gray-900 App"
-            }, React.createElement(Layout$Header, {}), React.createElement(Layout$ThePage, {
-                  count: match[0],
-                  setCount: match[1]
-                }));
+            }, React.createElement(Layout$Header, {}), React.createElement(Layout$ThePage, {}));
 }
 
 var Main = {

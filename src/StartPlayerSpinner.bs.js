@@ -2,14 +2,14 @@
 
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
-import * as Js_math from "bs-platform/lib/es6/js_math.js";
 import * as Caml_obj from "bs-platform/lib/es6/caml_obj.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as Caml_int32 from "bs-platform/lib/es6/caml_int32.js";
 import * as FramerMotion from "framer-motion";
+import * as Model$Bgquickstartcom from "./Model.bs.js";
 
 function StartPlayerSpinner$Button(Props) {
-  var handleClick = Props.handleClick;
+  var onClick = Props.onClick;
   var className = Props.className;
   var icon = Props.icon;
   var label = Props.label;
@@ -25,9 +25,7 @@ function StartPlayerSpinner$Button(Props) {
                     transition: {
                       duration: 0.125
                     },
-                    onClick: (function (param) {
-                        return Curry._1(handleClick, undefined);
-                      }),
+                    onClick: onClick,
                     className: "flex flex-row justify-around items-center p-3 px-4 rounded font-bold cursor-pointer shadow-lg " + className
                   }, icon, label.toUpperCase()),
               initial: {
@@ -95,18 +93,17 @@ var Shuffle = {
 };
 
 function StartPlayerSpinner$StartPlayerArrow(Props) {
-  var chooseStartPlayer = Props.chooseStartPlayer;
-  var isRotationClockwise = Props.isRotationClockwise;
   var angle = Props.angle;
-  var adjustedNextRotation = isRotationClockwise ? 1080 + angle.next | 0 : angle.next;
+  var prevAngle = Props.prevAngle;
+  var onClick = Props.onClick;
   var initial = {
     width: 56,
-    rotate: angle.prev,
+    rotate: prevAngle,
     height: 56
   };
   var animate = {
     width: 56,
-    rotate: adjustedNextRotation,
+    rotate: angle,
     height: 56
   };
   var transition = {
@@ -114,9 +111,6 @@ function StartPlayerSpinner$StartPlayerArrow(Props) {
   };
   var whileHover = {
     backgroundColor: "#5F6163"
-  };
-  var onClick = function (param) {
-    return Curry._1(chooseStartPlayer, undefined);
   };
   return React.createElement(FramerMotion.motion.div, {
               children: React.createElement("div", {
@@ -141,7 +135,7 @@ var StartPlayerArrow = {
 function StartPlayerSpinner$PlayerSeat(Props) {
   var rotateString = Props.rotateString;
   var seatNumber = Props.seatNumber;
-  var startPlayer = Props.startPlayer;
+  var player = Props.player;
   return React.createElement("div", {
               className: "m-auto dotBox",
               style: {
@@ -149,7 +143,7 @@ function StartPlayerSpinner$PlayerSeat(Props) {
               }
             }, React.createElement(FramerMotion.motion.div, {
                   className: "w-8 h-8 bg-gray-800 rounded-full dotItem dot"
-                }), Caml_obj.caml_equal(seatNumber, startPlayer) ? React.createElement(FramerMotion.motion.div, {
+                }), Caml_obj.caml_equal(seatNumber, player) ? React.createElement(FramerMotion.motion.div, {
                     initial: {
                       opacity: 0.0
                     },
@@ -171,14 +165,14 @@ var PlayerSeat = {
 
 function StartPlayerSpinner$PlayerSeats(Props) {
   var count = Props.count;
-  var startPlayer = Props.startPlayer;
+  var player = Props.player;
   return React.createElement(React.Fragment, undefined, Belt_Array.map(Belt_Array.range(1, count), (function (seatNumber) {
                     var angle = String(Math.imul(Caml_int32.div(360, count), seatNumber) + 225 | 0) + "deg";
                     var rotateString = "rotate(" + angle + ")";
                     return React.createElement(StartPlayerSpinner$PlayerSeat, {
                                 rotateString: rotateString,
                                 seatNumber: seatNumber,
-                                startPlayer: startPlayer,
+                                player: player,
                                 key: "player-seat-" + String(seatNumber)
                               });
                   })));
@@ -190,67 +184,35 @@ var PlayerSeats = {
 
 function StartPlayerSpinner(Props) {
   var count = Props.count;
-  var setCount = Props.setCount;
-  var match = React.useState(function () {
-        return true;
-      });
-  var setIsRotationClockwise = match[1];
-  var match$1 = React.useState(function () {
-        return 0;
-      });
-  var setStartPlayer = match$1[1];
-  var match$2 = React.useState(function () {
-        return {
-                next: 0,
-                prev: 0
-              };
-      });
-  var setAngle = match$2[1];
-  var chooseStartPlayer = function (param) {
-    var newStartPlayer = Js_math.floor_int(Math.random() * count) + 1 | 0;
-    Curry._1(setStartPlayer, (function (param) {
-            return newStartPlayer;
-          }));
-    Curry._1(setIsRotationClockwise, (function (state) {
-            return !state;
-          }));
-    var next = Math.imul(Caml_int32.div(360, count), newStartPlayer) + 225 | 0;
-    return Curry._1(setAngle, (function (state) {
-                  return {
-                          prev: state.next,
-                          next: next
-                        };
-                }));
+  var player = Props.player;
+  var angle = Props.angle;
+  var prevAngle = Props.prevAngle;
+  var dispatch = React.useContext(Model$Bgquickstartcom.Dispatch.ctx);
+  var reroll = function (param) {
+    return Curry._1(dispatch, /* Roll */{
+                count: count
+              });
   };
-  React.useEffect((function () {
-          chooseStartPlayer(undefined);
-          
-        }), [count]);
   var reset = function (param) {
-    Curry._1(setCount, (function (param) {
-            return 0;
-          }));
-    return Curry._1(setStartPlayer, (function (param) {
-                  return 0;
-                }));
+    return Curry._1(dispatch, /* Reset */0);
   };
   return React.createElement(React.Fragment, undefined, React.createElement("div", {
                   className: "dotWrap"
                 }, React.createElement(StartPlayerSpinner$PlayerSeats, {
                       count: count,
-                      startPlayer: match$1[0]
+                      player: player
                     }), React.createElement("div", {
                       className: "m-auto startBox"
                     }, React.createElement(StartPlayerSpinner$StartPlayerArrow, {
-                          chooseStartPlayer: chooseStartPlayer,
-                          isRotationClockwise: match[0],
-                          angle: match$2[0]
+                          angle: angle,
+                          prevAngle: prevAngle,
+                          onClick: reroll
                         }))), React.createElement("p", {
                   className: "text-sm font-bold text-gray-400"
                 }, "(YOU)"), React.createElement("div", {
                   className: "grid grid-cols-2 gap-4 mt-12"
                 }, React.createElement(StartPlayerSpinner$Button, {
-                      handleClick: reset,
+                      onClick: reset,
                       className: "text-red-900 bg-red-300 hover:bg-red-200",
                       icon: React.createElement(StartPlayerSpinner$ArrowBack, {
                             height: "24",
@@ -258,7 +220,7 @@ function StartPlayerSpinner(Props) {
                           }),
                       label: "reset"
                     }), React.createElement(StartPlayerSpinner$Button, {
-                      handleClick: chooseStartPlayer,
+                      onClick: reroll,
                       className: "text-green-900 bg-green-400 hover:bg-green-300",
                       icon: React.createElement(StartPlayerSpinner$Shuffle, {
                             height: "24",
