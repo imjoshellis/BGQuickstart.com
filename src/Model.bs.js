@@ -2,20 +2,19 @@
 
 import * as React from "react";
 import * as Js_math from "bs-platform/lib/es6/js_math.js";
-import * as Caml_int32 from "bs-platform/lib/es6/caml_int32.js";
 
 var initialState = {
   count: undefined,
   player: undefined,
   rotation: /* Clockwise */0,
   rotate: {
-    next: 0,
-    prev: 0
+    next: 0.0,
+    prev: 0.0
   }
 };
 
 function make(count, position) {
-  return Math.imul(Caml_int32.div(360, count), position) + 225 | 0;
+  return 360.0 / count * position + 225.0;
 }
 
 var Rotate = {
@@ -31,7 +30,7 @@ function reducer(state, action) {
   var rotation = match ? /* Clockwise */0 : /* CounterClockwise */1;
   var player = Js_math.random_int(1, count + 1 | 0);
   var currAngle = make(count, player);
-  var nextAngle = rotation ? currAngle : 1080 + currAngle | 0;
+  var nextAngle = rotation ? currAngle : 360.0 * 3.0 + currAngle;
   return {
           count: count,
           player: player,

@@ -1,5 +1,5 @@
 type rotation = Clockwise | CounterClockwise
-type rotate = {next: int, prev: int}
+type rotate = {next: float, prev: float}
 type state = {
   count: option<int>,
   player: option<int>,
@@ -11,7 +11,7 @@ let initialState = {
   count: None,
   player: None,
   rotation: Clockwise,
-  rotate: {prev: 0, next: 0},
+  rotate: {prev: 0.0, next: 0.0},
 }
 
 type action =
@@ -19,7 +19,7 @@ type action =
   | Reset
 
 module Rotate = {
-  let make = (~count, ~position) => 360 / count * position + 225
+  let make = (~count, ~position) => 360.0 /. Int.toFloat(count) *. Int.toFloat(position) +. 225.0
 }
 
 let reducer = (state: state, action: action) => {
@@ -34,7 +34,7 @@ let reducer = (state: state, action: action) => {
       let currAngle = Rotate.make(~count, ~position=player)
 
       let nextAngle = switch rotation {
-      | Clockwise => 360 * 3 + currAngle
+      | Clockwise => 360.0 *. 3.0 +. currAngle
       | CounterClockwise => currAngle
       }
 
