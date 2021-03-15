@@ -1,22 +1,26 @@
 type rotation = Clockwise | CounterClockwise
-type angle = {next: int, prev: int}
+type rotate = {next: int, prev: int}
 type state = {
   count: option<int>,
   player: option<int>,
   rotation: rotation,
-  angle: angle,
+  rotate: rotate,
 }
 
 let initialState = {
   count: None,
   player: None,
   rotation: Clockwise,
-  angle: {prev: 0, next: 0},
+  rotate: {prev: 0, next: 0},
 }
 
 type action =
   | Roll({count: int})
   | Reset
+
+module Rotate = {
+  let make = (~count, ~position) => 360 / count * position + 225
+}
 
 let reducer = (state: state, action: action) => {
   switch action {
@@ -27,7 +31,7 @@ let reducer = (state: state, action: action) => {
       }
 
       let player = Js.Math.random_int(1, count + 1)
-      let currAngle = 360 / count * player + 225
+      let currAngle = Rotate.make(~count, ~position=player)
 
       let nextAngle = switch rotation {
       | Clockwise => 360 * 3 + currAngle
@@ -38,7 +42,7 @@ let reducer = (state: state, action: action) => {
         player: Some(player),
         count: Some(count),
         rotation: rotation,
-        angle: {next: nextAngle, prev: state.angle.next},
+        rotate: {next: nextAngle, prev: state.rotate.next},
       }
     }
   | Reset => initialState

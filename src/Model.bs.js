@@ -8,10 +8,18 @@ var initialState = {
   count: undefined,
   player: undefined,
   rotation: /* Clockwise */0,
-  angle: {
+  rotate: {
     next: 0,
     prev: 0
   }
+};
+
+function make(count, position) {
+  return Math.imul(Caml_int32.div(360, count), position) + 225 | 0;
+}
+
+var Rotate = {
+  make: make
 };
 
 function reducer(state, action) {
@@ -22,15 +30,15 @@ function reducer(state, action) {
   var match = state.rotation;
   var rotation = match ? /* Clockwise */0 : /* CounterClockwise */1;
   var player = Js_math.random_int(1, count + 1 | 0);
-  var currAngle = Math.imul(Caml_int32.div(360, count), player) + 225 | 0;
+  var currAngle = make(count, player);
   var nextAngle = rotation ? currAngle : 1080 + currAngle | 0;
   return {
           count: count,
           player: player,
           rotation: rotation,
-          angle: {
+          rotate: {
             next: nextAngle,
-            prev: state.angle.next
+            prev: state.rotate.next
           }
         };
 }
@@ -57,10 +65,10 @@ var CtxFunctor = {
 
 var t = React.createContext(initialState);
 
-var make = t.Provider;
+var make$1 = t.Provider;
 
 var Provider = {
-  make: make
+  make: make$1
 };
 
 function use(param) {
@@ -79,10 +87,10 @@ function defaultValue(param) {
 
 var t$1 = React.createContext(defaultValue);
 
-var make$1 = t$1.Provider;
+var make$2 = t$1.Provider;
 
 var Provider$1 = {
-  make: make$1
+  make: make$2
 };
 
 function use$1(param) {
@@ -98,24 +106,25 @@ var Dispatch = {
 function Model(Props) {
   var children = Props.children;
   var match = React.useReducer(reducer, initialState);
-  return React.createElement(make$1, {
+  return React.createElement(make$2, {
               value: match[1],
-              children: React.createElement(make, {
+              children: React.createElement(make$1, {
                     value: match[0],
                     children: children
                   })
             });
 }
 
-var make$2 = Model;
+var make$3 = Model;
 
 export {
   initialState ,
+  Rotate ,
   reducer ,
   CtxFunctor ,
   State ,
   Dispatch ,
-  make$2 as make,
+  make$3 as make,
   
 }
 /* t Not a pure module */

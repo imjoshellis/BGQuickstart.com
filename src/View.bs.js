@@ -4,7 +4,6 @@ import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Caml_obj from "bs-platform/lib/es6/caml_obj.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
-import * as Caml_int32 from "bs-platform/lib/es6/caml_int32.js";
 import * as FramerMotion from "framer-motion";
 import * as Icon$Bgquickstartcom from "./Icon.bs.js";
 import * as Model$Bgquickstartcom from "./Model.bs.js";
@@ -60,9 +59,7 @@ function View$Page$Spinner$Button(Props) {
                         "flex flex-row justify-around items-center p-3 px-4 rounded font-bold cursor-pointer shadow-lg transform active:scale-95 hover:scale-105 transition",
                         className
                       ].join(" "),
-                    onClick: (function (param) {
-                        return Curry._1(onClick, undefined);
-                      })
+                    onClick: onClick
                   }, icon, label.toUpperCase()),
               initial: {
                 opacity: 0.0,
@@ -83,7 +80,7 @@ var Button = {
 };
 
 function View$Page$Spinner$StartPlayerArrow(Props) {
-  var angle = Props.angle;
+  var rotate = Props.rotate;
   var onClick = Props.onClick;
   return React.createElement(FramerMotion.motion.div, {
               children: React.createElement("div", {
@@ -93,10 +90,10 @@ function View$Page$Spinner$StartPlayerArrow(Props) {
                         width: "32"
                       })),
               initial: {
-                rotate: angle.prev
+                rotate: rotate.prev
               },
               animate: {
-                rotate: angle.next
+                rotate: rotate.next
               },
               transition: {
                 duration: 0.25
@@ -111,17 +108,18 @@ var StartPlayerArrow = {
 };
 
 function View$Page$Spinner$PlayerSeat(Props) {
-  var rotateString = Props.rotateString;
-  var seatNumber = Props.seatNumber;
+  var rotate = Props.rotate;
+  var position = Props.position;
   var player = Props.player;
-  return React.createElement("div", {
-              className: "m-auto dotBox",
-              style: {
-                transform: rotateString
-              }
-            }, React.createElement(FramerMotion.motion.div, {
+  return React.createElement(FramerMotion.motion.div, {
+              children: null,
+              initial: {
+                rotate: rotate
+              },
+              className: "m-auto dotBox"
+            }, React.createElement("div", {
                   className: "w-8 h-8 bg-gray-800 rounded-full dotItem dot"
-                }), Caml_obj.caml_equal(seatNumber, player) ? React.createElement(FramerMotion.motion.div, {
+                }), Caml_obj.caml_equal(position, player) ? React.createElement(FramerMotion.motion.div, {
                     initial: {
                       opacity: 0.0
                     },
@@ -133,7 +131,7 @@ function View$Page$Spinner$PlayerSeat(Props) {
                       duration: 0.25,
                       ease: "easeIn"
                     },
-                    className: "w-8 h-8 bg-gray-400 rounded-full dotItem dot"
+                    className: "w-8 h-8 bg-gray-400 border-2 border-gray-200 rounded-full dotItem dot"
                   }) : React.createElement(React.Fragment, undefined));
 }
 
@@ -144,14 +142,14 @@ var PlayerSeat = {
 function View$Page$Spinner$PlayerSeats(Props) {
   var count = Props.count;
   var player = Props.player;
-  return React.createElement(React.Fragment, undefined, Belt_Array.map(Belt_Array.range(1, count), (function (seatNumber) {
-                    var angle = String(Math.imul(Caml_int32.div(360, count), seatNumber) + 225 | 0) + "deg";
-                    var rotateString = "rotate(" + angle + ")";
+  return React.createElement(React.Fragment, undefined, Belt_Array.map(Belt_Array.range(1, count), (function (position) {
+                    var rotate = Model$Bgquickstartcom.Rotate.make(count, position);
+                    var key = String(position);
                     return React.createElement(View$Page$Spinner$PlayerSeat, {
-                                rotateString: rotateString,
-                                seatNumber: seatNumber,
+                                rotate: rotate,
+                                position: position,
                                 player: player,
-                                key: "player-seat-" + String(seatNumber)
+                                key: key
                               });
                   })));
 }
@@ -163,7 +161,7 @@ var PlayerSeats = {
 function View$Page$Spinner(Props) {
   var count = Props.count;
   var player = Props.player;
-  var angle = Props.angle;
+  var rotate = Props.rotate;
   var dispatch = Model$Bgquickstartcom.Dispatch.use(undefined);
   var reroll = function (param) {
     return Curry._1(dispatch, /* Roll */{
@@ -188,7 +186,7 @@ function View$Page$Spinner(Props) {
                     }), React.createElement("div", {
                       className: "m-auto startBox"
                     }, React.createElement(View$Page$Spinner$StartPlayerArrow, {
-                          angle: angle,
+                          rotate: rotate,
                           onClick: reroll
                         }))), React.createElement("p", {
                   className: "text-sm font-bold text-gray-400"
@@ -222,16 +220,22 @@ var Spinner = {
 };
 
 function View$Page$Grid$CountButton(Props) {
-  var num = Props.num;
+  var n = Props.n;
   var dispatch = Model$Bgquickstartcom.Dispatch.use(undefined);
+  var onClick = function (param) {
+    return Curry._1(dispatch, /* Roll */{
+                count: n
+              });
+  };
+  var className = [
+      "px-8 py-8 text-xl font-bold text-gray-900 bg-gray-600 rounded-lg shadow-lg cursor-pointer transform transition",
+      "hover:bg-gray-400 hover:scale-105",
+      "active:bg-gray-700 active:scale-105 "
+    ].join(" ");
   return React.createElement("div", {
-              className: "px-8 py-8 text-xl font-bold text-gray-900 bg-gray-600 rounded-lg shadow-lg cursor-pointer transform hover:bg-gray-400 hover:scale-105 active:bg-gray-700 active:scale-105 transition",
-              onClick: (function (param) {
-                  return Curry._1(dispatch, /* Roll */{
-                              count: num
-                            });
-                })
-            }, num);
+              className: className,
+              onClick: onClick
+            }, n);
 }
 
 var CountButton = {
@@ -242,10 +246,10 @@ function View$Page$Grid(Props) {
   return React.createElement(FramerMotion.motion.div, {
               children: React.createElement("div", {
                     className: "grid grid-cols-3 gap-4"
-                  }, Belt_Array.map(Belt_Array.range(2, 10), (function (num) {
+                  }, Belt_Array.map(Belt_Array.range(2, 10), (function (n) {
                           return React.createElement(View$Page$Grid$CountButton, {
-                                      num: num,
-                                      key: String(num)
+                                      n: n,
+                                      key: String(n)
                                     });
                         }))),
               exit: exit,
@@ -292,7 +296,7 @@ function View(Props) {
     page = player !== undefined ? React.createElement(View$Page$Spinner, {
             count: count,
             player: player,
-            angle: state.angle
+            rotate: state.rotate
           }) : React.createElement(View$Page$Grid, {});
   } else {
     page = React.createElement(View$Page$Grid, {});

@@ -32,7 +32,7 @@ module Page = {
           animate={Motion.Style.make(~opacity=1.0, ~y=0, ())}
           transition={Motion.Style.make(~delay=0.25, ())}>
           <div
-            onClick={_ => onClick()}
+            onClick
             className={[
               "flex flex-row justify-around items-center p-3 px-4 rounded font-bold cursor-pointer shadow-lg transform active:scale-95 hover:scale-105 transition",
               className,
@@ -45,10 +45,10 @@ module Page = {
 
     module StartPlayerArrow = {
       @react.component
-      let make = (~angle, ~onClick) => {
+      let make = (~rotate, ~onClick) => {
         <Motion.Div
-          initial={Motion.Style.make(~rotate=angle.Model.prev, ())}
-          animate={Motion.Style.make(~rotate=angle.Model.next, ())}
+          initial={Motion.Style.make(~rotate=rotate.Model.prev, ())}
+          animate={Motion.Style.make(~rotate=rotate.Model.next, ())}
           transition={Motion.Style.make(~duration=0.25, ())}
           onClick
           className="flex flex-col items-center justify-center text-gray-500 bg-gray-800 border-2 border-gray-700 border-solid rounded-full cursor-pointer start h-12 w-12 hover:bg-gray-700 transition">
@@ -61,18 +61,18 @@ module Page = {
 
     module PlayerSeat = {
       @react.component
-      let make = (~rotateString, ~seatNumber, ~player) => {
-        <div style={ReactDOM.Style.make(~transform=rotateString, ())} className="m-auto dotBox">
-          <Motion.Div className="w-8 h-8 bg-gray-800 rounded-full dotItem dot" />
-          {seatNumber == player
+      let make = (~rotate, ~position, ~player) => {
+        <Motion.Div initial={Motion.Style.make(~rotate, ())} className="m-auto dotBox">
+          <div className="w-8 h-8 bg-gray-800 rounded-full dotItem dot" />
+          {position == player
             ? <Motion.Div
                 initial={Motion.Style.make(~opacity=0.0, ())}
                 animate={Motion.Style.make(~opacity=1.0, ())}
                 transition={Motion.Style.make(~delay=0.125, ~duration=0.25, ~ease="easeIn", ())}
-                className="w-8 h-8 bg-gray-400 rounded-full dotItem dot"
+                className="w-8 h-8 bg-gray-400 border-2 border-gray-200 rounded-full dotItem dot"
               />
             : <> </>}
-        </div>
+        </Motion.Div>
       }
     }
 
@@ -81,13 +81,11 @@ module Page = {
       let make = (~count, ~player) => {
         <>
           {Array.range(1, count)
-          ->Array.map(seatNumber => {
-            let angle = Int.toString(360 / count * seatNumber + 225) ++ "deg"
-            let rotateString = `rotate(${angle})`
+          ->Array.map(position => {
+            let rotate = Model.Rotate.make(~count, ~position)
+            let key = Int.toString(position)
 
-            <PlayerSeat
-              key={`player-seat-${Int.toString(seatNumber)}`} seatNumber rotateString player
-            />
+            <PlayerSeat key position rotate player />
           })
           ->React.array}
         </>
@@ -95,15 +93,15 @@ module Page = {
     }
 
     @react.component
-    let make = (~count, ~player, ~angle) => {
+    let make = (~count, ~player, ~rotate) => {
       let dispatch = Model.Dispatch.use()
-      let reroll = () => dispatch(Model.Roll({count: count}))
-      let reset = () => dispatch(Model.Reset)
+      let reroll = _ => dispatch(Model.Roll({count: count}))
+      let reset = _ => dispatch(Model.Reset)
 
       <Motion.Div initial animate exit transition key="spinner">
         <div className="dotWrap">
           <PlayerSeats count player />
-          <div className="m-auto startBox"> <StartPlayerArrow onClick={reroll} angle /> </div>
+          <div className="m-auto startBox"> <StartPlayerArrow onClick={reroll} rotate /> </div>
         </div>
         <p className="text-sm font-bold text-gray-400"> {React.string("(YOU)")} </p>
         <div className="grid grid-cols-2 gap-4 mt-12">
@@ -127,26 +125,26 @@ module Page = {
   module Grid = {
     module CountButton = {
       @react.component
-      let make = (~num: int) => {
+      let make = (~n: int) => {
         let dispatch = Model.Dispatch.use()
-        <div
-          onClick={_ => dispatch(Model.Roll({count: num}))}
-          className="px-8 py-8 text-xl font-bold text-gray-900 bg-gray-600 rounded-lg shadow-lg cursor-pointer transform hover:bg-gray-400 hover:scale-105 active:bg-gray-700 active:scale-105 transition">
-          {React.int(num)}
-        </div>
+        let onClick = _ => dispatch(Model.Roll({count: n}))
+
+        let base = "px-8 py-8 text-xl font-bold text-gray-900 bg-gray-600 rounded-lg shadow-lg cursor-pointer transform transition"
+        let hover = "hover:bg-gray-400 hover:scale-105"
+        let active = "active:bg-gray-700 active:scale-105 "
+        let className = [base, hover, active]->Js.Array2.joinWith(" ")
+
+        <div onClick className> {React.int(n)} </div>
       }
     }
 
     @react.component
-    let make = () => {
+    let make = () =>
       <Motion.Div initial animate exit transition key="grid">
         <div className="grid grid-cols-3 gap-4">
-          {Array.range(2, 10)
-          ->Array.map(num => <CountButton key={num->Int.toString} num />)
-          ->React.array}
+          {Array.range(2, 10)->Array.map(n => <CountButton key={n->Int.toString} n />)->React.array}
         </div>
       </Motion.Div>
-    }
   }
 }
 
@@ -160,7 +158,7 @@ module Transition = {
 let make = () => {
   let state = Model.State.use()
   let page = switch state {
-  | {count: Some(count), player: Some(player), angle} => <Page.Spinner count player angle />
+  | {count: Some(count), player: Some(player), rotate} => <Page.Spinner count player rotate />
   | _ => <Page.Grid />
   }
 
