@@ -10,7 +10,7 @@ module Style = {
     ~opacity: float=?,
     ~scale: float=?,
     ~width: int=?,
-    ~rotate: int=?,
+    ~rotate: float=?,
     ~height: int=?,
     ~y: int=?,
     unit,
