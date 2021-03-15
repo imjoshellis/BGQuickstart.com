@@ -34,10 +34,9 @@ module Div = {
     ~exit: Style.t=?,
     ~initial: Style.t=?,
     ~animate: Style.t=?,
-    ~whileHover: Style.t=?,
-    ~whileTap: Style.t=?,
     ~transition: Style.t=?,
     ~onClick: unit => unit=?,
     ~className: string=?,
+    ~key: string=?,
   ) => React.element = "div"
 }

@@ -8,106 +8,114 @@ var initialState = {
   count: undefined,
   player: undefined,
   rotation: /* Clockwise */0,
-  prevAngle: 0,
-  angle: 0
+  angle: {
+    next: 0,
+    prev: 0
+  }
 };
 
 function reducer(state, action) {
   if (!action) {
-    return {
-            count: undefined,
-            player: undefined,
-            rotation: /* Clockwise */0,
-            prevAngle: 0,
-            angle: 0
-          };
+    return initialState;
   }
   var count = action.count;
-  var choose = function (count) {
-    return Js_math.floor_int(Math.random() * count) + 1 | 0;
-  };
   var match = state.rotation;
   var rotation = match ? /* Clockwise */0 : /* CounterClockwise */1;
-  var player = choose(count);
-  var nextAngle = Math.imul(Caml_int32.div(360, count), player) + 225 | 0;
-  var angle = rotation ? nextAngle : 1080 + nextAngle | 0;
+  var player = Js_math.random_int(1, count + 1 | 0);
+  var currAngle = Math.imul(Caml_int32.div(360, count), player) + 225 | 0;
+  var nextAngle = rotation ? currAngle : 1080 + currAngle | 0;
   return {
           count: count,
           player: player,
           rotation: rotation,
-          prevAngle: state.angle,
-          angle: angle
+          angle: {
+            next: nextAngle,
+            prev: state.angle.next
+          }
         };
 }
 
-var ctx = React.createContext(initialState);
-
-var provider = ctx.Provider;
-
-function Model$State$Provider(Props) {
-  var children = Props.children;
-  var value = Props.value;
-  return React.createElement(provider, {
-              children: children,
-              value: value
-            });
+function Make(Config) {
+  var t = React.createContext(Config.defaultValue);
+  var make = t.Provider;
+  var Provider = {
+    make: make
+  };
+  var use = function (param) {
+    return React.useContext(t);
+  };
+  return {
+          t: t,
+          Provider: Provider,
+          use: use
+        };
 }
+
+var CtxFunctor = {
+  Make: Make
+};
+
+var t = React.createContext(initialState);
+
+var make = t.Provider;
 
 var Provider = {
-  provider: provider,
-  make: Model$State$Provider
+  make: make
 };
 
-var State = {
-  ctx: ctx,
-  Provider: Provider
-};
-
-var ctx$1 = React.createContext(function (param) {
-      
-    });
-
-var provider$1 = ctx$1.Provider;
-
-function Model$Dispatch$Provider(Props) {
-  var children = Props.children;
-  var value = Props.value;
-  return React.createElement(provider$1, {
-              children: children,
-              value: value
-            });
+function use(param) {
+  return React.useContext(t);
 }
 
-var Provider$1 = {
-  provider: provider$1,
-  make: Model$Dispatch$Provider
+var State = {
+  t: t,
+  Provider: Provider,
+  use: use
 };
 
+function defaultValue(param) {
+  
+}
+
+var t$1 = React.createContext(defaultValue);
+
+var make$1 = t$1.Provider;
+
+var Provider$1 = {
+  make: make$1
+};
+
+function use$1(param) {
+  return React.useContext(t$1);
+}
+
 var Dispatch = {
-  ctx: ctx$1,
-  Provider: Provider$1
+  t: t$1,
+  Provider: Provider$1,
+  use: use$1
 };
 
 function Model(Props) {
   var children = Props.children;
   var match = React.useReducer(reducer, initialState);
-  return React.createElement(Model$Dispatch$Provider, {
-              children: React.createElement(Model$State$Provider, {
-                    children: children,
-                    value: match[0]
-                  }),
-              value: match[1]
+  return React.createElement(make$1, {
+              value: match[1],
+              children: React.createElement(make, {
+                    value: match[0],
+                    children: children
+                  })
             });
 }
 
-var make = Model;
+var make$2 = Model;
 
 export {
   initialState ,
   reducer ,
+  CtxFunctor ,
   State ,
   Dispatch ,
-  make ,
+  make$2 as make,
   
 }
-/* ctx Not a pure module */
+/* t Not a pure module */

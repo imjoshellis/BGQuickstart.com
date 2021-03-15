@@ -1,18 +1,17 @@
 type rotation = Clockwise | CounterClockwise
+type angle = {next: int, prev: int}
 type state = {
   count: option<int>,
   player: option<int>,
   rotation: rotation,
-  prevAngle: int,
-  angle: int,
+  angle: angle,
 }
 
-let initialState: state = {
+let initialState = {
   count: None,
   player: None,
   rotation: Clockwise,
-  prevAngle: 0,
-  angle: 0,
+  angle: {prev: 0, next: 0},
 }
 
 type action =
@@ -22,63 +21,67 @@ type action =
 let reducer = (state: state, action: action) => {
   switch action {
   | Roll({count}) => {
-      let choose = count => Js.Math.floor_int(Js.Math.random() *. Int.toFloat(count)) + 1
-
       let rotation = switch state.rotation {
       | Clockwise => CounterClockwise
       | CounterClockwise => Clockwise
       }
 
-      let player = choose(count)
-      let nextAngle = 360 / count * player + 225
+      let player = Js.Math.random_int(1, count + 1)
+      let currAngle = 360 / count * player + 225
 
-      let angle = switch rotation {
-      | Clockwise => 360 * 3 + nextAngle
-      | CounterClockwise => nextAngle
+      let nextAngle = switch rotation {
+      | Clockwise => 360 * 3 + currAngle
+      | CounterClockwise => currAngle
       }
 
       {
         player: Some(player),
         count: Some(count),
         rotation: rotation,
-        angle: angle,
-        prevAngle: state.angle,
+        angle: {next: nextAngle, prev: state.angle.next},
       }
     }
-  | Reset => {
-      player: None,
-      count: None,
-      rotation: Clockwise,
-      angle: 0,
-      prevAngle: 0,
+  | Reset => initialState
+  }
+}
+
+module CtxFunctor = {
+  module type Config = {
+    type context
+    let defaultValue: context
+  }
+
+  module Make = (Config: Config) => {
+    let t = React.createContext(Config.defaultValue)
+
+    module Provider = {
+      let make = React.Context.provider(t)
+
+      @obj
+      external makeProps: (
+        ~value: Config.context,
+        ~children: React.element,
+        ~key: string=?,
+        unit,
+      ) => {"value": Config.context, "children": React.element} = ""
     }
+
+    let use = () => React.useContext(t)
   }
 }
 
 module State = {
-  let ctx = React.createContext(initialState)
-
-  module Provider = {
-    let provider = React.Context.provider(ctx)
-
-    @react.component
-    let make = (~children, ~value) => {
-      React.createElement(provider, {"children": children, "value": value})
-    }
-  }
+  include CtxFunctor.Make({
+    type context = state
+    let defaultValue = initialState
+  })
 }
 
 module Dispatch = {
-  let ctx = React.createContext(_ => ())
-
-  module Provider = {
-    let provider = React.Context.provider(ctx)
-
-    @react.component
-    let make = (~children, ~value) => {
-      React.createElement(provider, {"children": children, "value": value})
-    }
-  }
+  include CtxFunctor.Make({
+    type context = action => unit
+    let defaultValue = _ => ()
+  })
 }
 
 @react.component
