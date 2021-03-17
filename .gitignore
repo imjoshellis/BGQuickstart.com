@@ -1,12 +1,13 @@
+# Basics
 node_modules/
-build/
 .DS_Store
-src/css/tailwind.css
+dist
+*.local
 
 # ReScript
 .merlin
 lib
 .bsb.lock
 
-# Local Netlify folder
+# Netlify 
 .netlify
