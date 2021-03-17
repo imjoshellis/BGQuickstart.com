@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    content: ['./src/**/*.res']
+    content: ['./src/**/*.{js,res}']
   },
   theme: {
     extend: {
