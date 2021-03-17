@@ -19,4 +19,4 @@ BGQuickstart is built and deployed automatically by Netlify whenever changes are
 
 ## ⚡ Lighthouse Audit (it's fast!)
 
-![Lighthouse Score](https://github.com/imjoshellis/BGQuickstart.com/blob/main/readme/lighthouse-score.png?raw=true)
+![Lighthouse Score](https://github.com/imjoshellis/BGQuickstart.com/blob/main/readme/bgqs-lighthouse.gif?raw=true)
