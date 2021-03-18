@@ -7,6 +7,12 @@ export default defineConfig({
   plugins: [
     reactRefresh(),
     VitePWA({
+      strategies: 'injectManifest',
+      injectRegister: false,
+      injectManifest: {
+        swSrc: './src/sw.js',
+        swDest: './dist/sw.js'
+      },
       manifest: {
         background_color: '#1A202C',
         description: 'The fastest way to choose a start player.',
