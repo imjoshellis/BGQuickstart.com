@@ -13,3 +13,5 @@ const { StaleWhileRevalidate } = workbox.strategies
 const { ExpirationPlugin } = workbox.expiration
 
 precacheAndRoute(self.__WB_MANIFEST)
+
+console.log('sw is running')
