@@ -305,7 +305,9 @@ function View(Props) {
               className: "flex flex-col items-center justify-center px-4 py-8 text-gray-300 bg-gray-900 App"
             }, React.createElement(View$Transition, {
                   children: null
-                }, React.createElement(View$TheHeader, {}), page));
+                }, React.createElement(View$TheHeader, {
+                      key: "header"
+                    }), page));
 }
 
 var make = View;
