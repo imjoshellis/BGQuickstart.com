@@ -164,6 +164,6 @@ let make = () => {
 
   <div
     className="flex flex-col items-center justify-center px-4 py-8 text-gray-300 bg-gray-900 App">
-    <Transition> <TheHeader /> {page} </Transition>
+    <Transition> <TheHeader key="header" /> {page} </Transition>
   </div>
 }
