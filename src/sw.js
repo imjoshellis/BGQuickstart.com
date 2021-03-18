@@ -5,27 +5,27 @@ importScripts(
 workbox.loadModule('workbox-precaching')
 workbox.loadModule('workbox-routing')
 workbox.loadModule('workbox-strategies')
+workbox.loadModule('workbox-expiration')
 
-workbox.precaching.precacheAndRoute(self.__WB_MANIFEST)
+const { precacheAndRoute } = workbox.precaching
+const { registerRoute } = workbox.routing
+const { StaleWhileRevalidate } = workbox.strategies
+const { ExpirationPlugin } = workbox.expiration
 
-const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$')
-workbox.routing.registerRoute(
-  // Return false to exempt requests from being fulfilled by index.html.
-  ({ request, url }) => {
-    // If this isn't a navigation, skip.
-    if (request.mode !== 'navigate') {
-      return false
-    } // If this is a URL that starts with /_, skip.
+precacheAndRoute(self.__WB_MANIFEST)
 
-    if (url.pathname.startsWith('/_')) {
-      return false
-    } // If this looks like a URL for a resource, because it contains // a file extension, skip.
-
-    if (url.pathname.match(fileExtensionRegexp)) {
-      return false
-    } // Return true to signal that we want to use the handler.
-
-    return true
-  },
-  new workbox.strategies.StaleWhileRevalidate()
+// An example runtime caching route for requests that aren't handled by the
+// precache, in this case same-origin .png requests like those from in public/
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  new StaleWhileRevalidate({
+    cacheName: 'images',
+    plugins: [
+      // Ensure that once this runtime cache reaches a maximum size the
+      // least-recently used images are removed.
+      new ExpirationPlugin({ maxEntries: 50 })
+    ]
+  })
 )
