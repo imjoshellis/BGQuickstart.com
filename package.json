@@ -36,7 +36,7 @@
     "autoprefixer": "^10.2.5",
     "bs-platform": "^9.0.1",
     "gentype": "^3.44.0",
-    "postcss": "^8.2.8",
+    "postcss": "^8.2.10",
     "tailwindcss": "^2.0.3",
     "vite": "^2.1.0",
     "vite-plugin-pwa": "^0.5.6"
