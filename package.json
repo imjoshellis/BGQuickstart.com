@@ -38,7 +38,7 @@
     "gentype": "^3.44.0",
     "postcss": "^8.2.8",
     "tailwindcss": "^2.0.3",
-    "vite": "^2.1.0",
+    "vite": "^2.9.13",
     "vite-plugin-pwa": "^0.5.6"
   }
 }
